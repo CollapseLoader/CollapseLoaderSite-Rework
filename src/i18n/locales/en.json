@@ -1,0 +1,89 @@
+{
+    "brand": "CollapseLoader",
+    "nav": {
+        "why": "Why Us",
+        "features": "Features",
+        "safety": "Safety",
+        "download": "Download"
+    },
+    "hero": {
+        "title": "CollapseLoader",
+        "subtitle": "The Secure Loader for Minecraft Cheat Clients",
+        "desc": "A completely open-source loader where every client is checked for viruses. Both the client and the backend are public, ensuring total transparency.",
+        "download": "Download Now",
+        "source": "View Source"
+    },
+    "why": {
+        "title": "Why Choose Us?",
+        "desc": "Experience the difference a modern, community-focused loader makes.",
+        "open": {
+            "title": "Fully Open Source",
+            "desc": "Complete transparency with every line of code on GitHub. No hidden data collection, and verified by the community."
+        },
+        "modern": {
+            "title": "Modern & Fast",
+            "desc": "Built with Rust and Tauri for top-tier performance on Windows and Linux."
+        },
+        "safe": {
+            "title": "Safe & Secure",
+            "desc": "Every client is thoroughly scanned for viruses. Your security is our number one priority."
+        }
+    },
+    "features": {
+        "title": "Exclusive Features",
+        "desc": "Powerful tools and unique integrations you won't find anywhere else.",
+        "cloud": {
+            "title": "Cloud Sync",
+            "desc": "Log in to your CollapseLoader account to sync all your minecraft accounts, settings, and favorite clients across devices.",
+            "badges": ["Real-time Sync"]
+        },
+        "custom": {
+            "title": "Deep Customization",
+            "desc": "Take full control of the look and feel. You can write your own custom CSS to style the loader exactly how you want it.",
+            "badges": ["Custom CSS", "Theme Engine"]
+        },
+        "cord": {
+            "title": "CordShare",
+            "desc": "Share your coordinates with friends to show your location in-game, even when you're outside loaded chunks.",
+            "badges": ["Real-time Location", "Infinite Range"]
+        },
+        "irc": {
+            "title": "IRC Chat",
+            "desc": "Chat with other CollapseLoader users in the integrated IRC chat available in each client.",
+            "badges": ["Global Chat", "In any Client"]
+        }
+    },
+    "safety": {
+        "title": "Trust & Transparency",
+        "desc": "Our commitment to open source means CollapseLoader will always be safe. Anyone can audit the code to verify its integrity.",
+        "public": "Public source code",
+        "reviewed": "Community reviewed & audited",
+        "no_malware": "No hidden malware or backdoors",
+        "review": "Review the Code",
+        "verify": "Don't Trust. Verify.",
+        "verify_desc": "We encourage you to inspect the code yourself. The entire project is built on the principle of verifiable trust."
+    },
+    "download": {
+        "title": "Get Started",
+        "desc": "Download the latest version of CollapseLoader and enjoy a safer, more powerful Minecraft experience.",
+        "latest": "Latest Release",
+        "latest_desc": "Get the newest version of CollapseLoader with all the latest features and updates.",
+        "get_latest": "Download Latest",
+        "view_all": "View All Versions",
+        "source_code": "Source Code",
+        "source_code_desc": "Access the complete source code of CollapseLoader on GitHub.",
+        "view_source": "View Source Code",
+        "nightly_desc": "Nightly builds are automatically generated from the latest changes. They may be unstable and are intended for testing new features and bug fixes before official releases.",
+        "get_nightly": "Download nightly"
+    },
+    "footer": {
+        "desc": "The open-source Minecraft client loader. Licensed under GPL-3.0.",
+        "copyright": "© 2025 CollapseLoader Project",
+        "discussions": "Discussions",
+        "issues": "Report an Issue",
+        "not_affiliated": "Minecraft is a trademark of Mojang Studios. This project is not affiliated with Mojang Studios."
+    },
+    "lang": "Language",
+    "lang_en": "English",
+    "lang_ru": "Русский"
+}
