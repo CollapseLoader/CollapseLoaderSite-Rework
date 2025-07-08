@@ -8,8 +8,19 @@ const messages = {
     ru
 };
 
+const getBrowserLanguage = () => {
+    const browserLang = navigator.language.split('-')[0];
+    const supportedLanguages = ['en', 'ru'];
+    return supportedLanguages.includes(browserLang) ? browserLang : 'en';
+};
+
+const getLanguageFromURL = () => {
+    const pathLang = window.location.pathname.split('/')[1];
+    return (pathLang === 'en' || pathLang === 'ru') ? pathLang : null;
+};
+
 const getStoredLanguage = () => {
-    return localStorage.getItem('language') || 'en';
+    return getLanguageFromURL() || localStorage.getItem('language') || getBrowserLanguage();
 };
 
 export const getCurrentLanguage = () => {
@@ -27,6 +38,16 @@ export const changeLanguage = async (locale: string) => {
     i18n.global.locale.value = locale as any;
     localStorage.setItem('language', locale);
     document.documentElement.setAttribute('lang', locale);
+    
+    const currentPath = window.location.pathname;
+    const currentLang = currentPath.split('/')[1];
+    
+    if (currentLang === 'en' || currentLang === 'ru') {
+        const newPath = currentPath.replace(`/${currentLang}`, `/${locale}`);
+        window.history.pushState({}, '', newPath);
+    } else if (currentPath === '/') {
+        window.history.pushState({}, '', `/${locale}`);
+    }
 }
 
 const i18n = createI18n({
