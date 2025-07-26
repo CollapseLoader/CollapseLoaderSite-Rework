@@ -1,29 +1,38 @@
 <script setup lang="ts">
-import VanillaTilt from 'vanilla-tilt';
-import { onMounted, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { useAnalytics } from '@/composables/useAnalytics';
 import { useGitHubReleases } from '@/composables/useGitHubReleases';
+import VanillaTilt from 'vanilla-tilt';
+import { onMounted, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+declare global {
+    interface Window {
+        Odometer: any;
+    }
+}
 
 import AppHeader from '@/components/AppHeader.vue';
-import FeatureCard from '@/components/FeatureCard.vue';
 import ExclusiveFeatures from '@/components/ExclusiveFeatures.vue';
+import FeatureCard from '@/components/FeatureCard.vue';
 import ScrollProgress from '@/components/ScrollProgress.vue';
 
 import {
-    Github,
+    BarChart,
+    CheckCircle,
+    ChevronRight,
     Download,
+    FileSearch,
+    Github,
+    Rocket,
+    ShieldCheck,
     Unlock,
     Zap,
-    ShieldCheck,
-    CheckCircle,
-    Rocket,
-    FileSearch,
-    ChevronRight,
 } from 'lucide-vue-next';
 
 const { t } = useI18n();
 const tiltElement = ref<HTMLElement | null>(null);
 const heroRef = ref<HTMLElement | null>(null);
+const analyticsRef = ref<HTMLElement | null>(null);
 
 const {
     latestReleaseUrl,
@@ -31,6 +40,13 @@ const {
     latestPrereleaseUrl,
     latestPrereleaseLoaded,
 } = useGitHubReleases('https://api.github.com/repos/dest4590/CollapseLoader');
+
+const { totalLoaderLaunches, totalClientDownloads, totalClientLaunches } =
+    useAnalytics();
+
+const loaderOdometer = ref<any>(null);
+const downloadsOdometer = ref<any>(null);
+const launchesOdometer = ref<any>(null);
 
 onMounted(() => {
     if (tiltElement.value) {
@@ -48,6 +64,47 @@ onMounted(() => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
+                    if (entry.target === analyticsRef.value) {
+                        // Initialize odometers only once when analytics section is visible
+                        loaderOdometer.value = new window.Odometer({
+                            el: document.querySelector(
+                                '#loader-launches-odometer'
+                            ),
+                            value: 0,
+                            format: '(,ddd)',
+                            duration: 2000,
+                            theme: 'minimal',
+                        });
+                        loaderOdometer.value.update(totalLoaderLaunches.value);
+
+                        downloadsOdometer.value = new window.Odometer({
+                            el: document.querySelector(
+                                '#client-downloads-odometer'
+                            ),
+                            value: 0,
+                            format: '(,ddd)',
+                            duration: 2000,
+                            theme: 'minimal',
+                        });
+                        downloadsOdometer.value.update(
+                            totalClientDownloads.value
+                        );
+
+                        launchesOdometer.value = new window.Odometer({
+                            el: document.querySelector(
+                                '#client-launches-odometer'
+                            ),
+                            value: 0,
+                            format: '(,ddd)',
+                            duration: 2000,
+                            theme: 'minimal',
+                        });
+                        launchesOdometer.value.update(
+                            totalClientLaunches.value
+                        );
+
+                        observer.unobserve(entry.target);
+                    }
                     observer.unobserve(entry.target);
                 }
             });
@@ -62,6 +119,26 @@ onMounted(() => {
     document
         .querySelectorAll('.animate-on-scroll')
         .forEach((el) => observer.observe(el));
+
+    if (analyticsRef.value) {
+        observer.observe(analyticsRef.value);
+    }
+});
+
+watch(totalLoaderLaunches, (val) => {
+    if (loaderOdometer.value) {
+        loaderOdometer.value.update(val);
+    }
+});
+watch(totalClientDownloads, (val) => {
+    if (downloadsOdometer.value) {
+        downloadsOdometer.value.update(val);
+    }
+});
+watch(totalClientLaunches, (val) => {
+    if (launchesOdometer.value) {
+        launchesOdometer.value.update(val);
+    }
 });
 </script>
 
@@ -93,7 +170,6 @@ onMounted(() => {
                                 "
                             >
                                 {{ t('hero.title') }}
-                                <div class="title-glow"></div>
                             </h1>
                             <p
                                 class="text-xl md:text-2xl mb-4 font-semibold text-base-content animate-slide-in-up"
@@ -126,7 +202,7 @@ onMounted(() => {
                                 >
                                     {{ t('hero.download') }}
                                     <ChevronRight
-                                        class="h-6 w-6 group-hover:translate-x-1 group-hover:rotate-[-5deg] transition-transform"
+                                        class="h-6 w-6 group-hover:translate-x-1 transition-transform"
                                     />
                                 </span>
                                 <div class="btn-shine"></div>
@@ -140,7 +216,7 @@ onMounted(() => {
                                 <span class="flex items-center gap-2">
                                     {{ t('hero.source') }}
                                     <Github
-                                        class="h-6 w-6 group-hover:rotate-12 transition-transform"
+                                        class="h-6 w-6 transition-transform"
                                     />
                                 </span>
                             </a>
@@ -214,6 +290,94 @@ onMounted(() => {
 
             <ExclusiveFeatures />
 
+            <section
+                id="analytics"
+                ref="analyticsRef"
+                class="relative py-24 bg-base-100"
+            >
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="section-title animate-on-scroll anim-fade-up">
+                        {{ t('analytics.title') }}
+                    </h2>
+                    <p
+                        class="section-subtitle animate-on-scroll anim-fade-up"
+                        style="--delay: 100ms"
+                    >
+                        {{ t('analytics.desc') }}
+                    </p>
+                    <div
+                        class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-16"
+                    >
+                        <div
+                            class="card shadow-xl p-6 border border-primary/20 bg-primary/5 transition-all duration-300 animate-on-scroll anim-scale-in"
+                            style="--delay: 200ms"
+                        >
+                            <div class="flex items-center justify-center mb-4">
+                                <BarChart
+                                    class="h-12 w-12 text-primary group-hover:scale-110 transition-transform"
+                                />
+                            </div>
+                            <h3 class="text-2xl font-bold text-primary mb-2">
+                                {{ t('analytics.loader_launches') }}
+                            </h3>
+                            <p
+                                id="loader-launches-odometer"
+                                class="odometer text-4xl font-extrabold text-primary"
+                            >
+                                0
+                            </p>
+                            <p class="text-base-content/70 mt-2">
+                                {{ t('analytics.loader_launches_desc') }}
+                            </p>
+                        </div>
+                        <div
+                            class="card shadow-xl p-6 border border-primary/20 bg-primary/5 transition-all duration-300 animate-on-scroll anim-scale-in"
+                            style="--delay: 300ms"
+                        >
+                            <div class="flex items-center justify-center mb-4">
+                                <Download
+                                    class="h-12 w-12 text-primary group-hover:scale-110 transition-transform"
+                                />
+                            </div>
+                            <h3 class="text-2xl font-bold text-primary mb-2">
+                                {{ t('analytics.client_downloads') }}
+                            </h3>
+                            <p
+                                id="client-downloads-odometer"
+                                class="odometer text-4xl font-extrabold text-primary"
+                            >
+                                0
+                            </p>
+                            <p class="text-base-content/70 mt-2">
+                                {{ t('analytics.client_downloads_desc') }}
+                            </p>
+                        </div>
+                        <div
+                            class="card shadow-xl p-6 border border-primary/20 bg-primary/5 transition-all duration-300 animate-on-scroll anim-scale-in"
+                            style="--delay: 400ms"
+                        >
+                            <div class="flex items-center justify-center mb-4">
+                                <Rocket
+                                    class="h-12 w-12 text-primary group-hover:scale-110 transition-transform"
+                                />
+                            </div>
+                            <h3 class="text-2xl font-bold text-primary mb-2">
+                                {{ t('analytics.client_launches') }}
+                            </h3>
+                            <p
+                                id="client-launches-odometer"
+                                class="odometer text-4xl font-extrabold text-accent"
+                            >
+                                0
+                            </p>
+                            <p class="text-base-content/70 mt-2">
+                                {{ t('analytics.client_launches_desc') }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section id="safety" class="relative py-24">
                 <div class="section-wave-divider-bottom"></div>
                 <div class="bg-base-100 py-24">
@@ -277,7 +441,7 @@ onMounted(() => {
                         >
                             <figure class="px-10 pt-10 pb-6">
                                 <FileSearch
-                                    class="h-24 w-24 text-primary transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
+                                    class="h-24 w-24 text-primary transition-transform duration-300 group-hover:scale-110"
                                 />
                             </figure>
                             <div
@@ -329,7 +493,7 @@ onMounted(() => {
                                 class="card-body p-8 text-center flex flex-col"
                             >
                                 <Rocket
-                                    class="text-primary h-16 w-16 mx-auto mb-4 transition-transform duration-300 group-hover:animate-icon-bounce"
+                                    class="download-icon text-primary h-16 w-16 mx-auto mb-4"
                                 />
                                 <h3 class="card-title text-2xl mb-2">
                                     {{ t('download.latest') }}
@@ -344,7 +508,7 @@ onMounted(() => {
                                     "
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="btn btn-primary btn-block mt-auto hover:scale-105 transition-transform"
+                                    class="btn btn-download"
                                     :class="{
                                         'btn-disabled loading':
                                             !latestReleaseLoaded &&
@@ -362,14 +526,14 @@ onMounted(() => {
                             </div>
                         </div>
                         <div
-                            class="card-download group animate-on-scroll anim-scale-in"
+                            class="card-download group animate-on-scroll anim-scale-in hover:scale-105 transition-all duration-300"
                             style="--delay: 300ms"
                         >
                             <div
                                 class="card-body p-8 text-center flex flex-col"
                             >
                                 <Download
-                                    class="text-primary h-16 w-16 mx-auto mb-4 transition-transform duration-300 group-hover:animate-icon-bounce"
+                                    class="download-icon text-primary h-16 w-16 mx-auto mb-4"
                                 />
                                 <h3
                                     class="card-title text-2xl mb-2 text-primary"
@@ -386,7 +550,7 @@ onMounted(() => {
                                     "
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="btn btn-secondary btn-block mt-auto"
+                                    class="btn btn-download"
                                     :class="{
                                         'btn-disabled loading':
                                             !latestPrereleaseLoaded &&
@@ -404,14 +568,14 @@ onMounted(() => {
                             </div>
                         </div>
                         <div
-                            class="card-download group animate-on-scroll anim-scale-in"
+                            class="card-download group animate-on-scroll anim-scale-in hover:scale-105 transition-all duration-300"
                             style="--delay: 400ms"
                         >
                             <div
                                 class="card-body p-8 text-center flex flex-col"
                             >
                                 <Github
-                                    class="text-primary h-16 w-16 mx-auto mb-4 transition-transform duration-300 group-hover:animate-icon-bounce"
+                                    class="download-icon text-primary h-16 w-16 mx-auto mb-4"
                                 />
                                 <h3
                                     class="card-title text-2xl mb-2 text-primary"
@@ -425,7 +589,7 @@ onMounted(() => {
                                     href="https://github.com/dest4590/CollapseLoader"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="btn btn-accent btn-block mt-auto"
+                                    class="btn btn-download btn-accent"
                                 >
                                     {{ t('download.view_source') }}
                                 </a>
@@ -485,6 +649,7 @@ onMounted(() => {
 <style>
 @reference 'tailwindcss';
 @plugin 'daisyui';
+@import url('https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/themes/odometer-theme-minimal.css');
 
 html {
     scroll-behavior: smooth;
@@ -571,7 +736,7 @@ html {
     transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 .showcase:hover .showcase-front {
-    transform: translateZ(50px) scale(1.03);
+    transform: translateZ(20px) scale(1.03);
 }
 
 @keyframes icon-bounce {
@@ -658,16 +823,6 @@ html {
     background-image: linear-gradient(rgb(var(--b3) / 0.5) 1px, transparent 1px),
         linear-gradient(to right, rgb(var(--b3) / 0.5) 1px, transparent 1px);
     background-size: 3rem 3rem;
-    animation: pan-grid 40s linear infinite;
-    will-change: background-position;
-}
-@keyframes pan-grid {
-    0% {
-        background-position: 0% 0%;
-    }
-    100% {
-        background-position: 3rem 3rem;
-    }
 }
 
 .hero-gradient-bg {
@@ -709,28 +864,6 @@ html {
     }
     100% {
         background-position: 15px 15px;
-    }
-}
-
-.title-glow {
-    @apply absolute inset-0 -z-10 blur-3xl opacity-20;
-    background: radial-gradient(
-        circle at center,
-        hsl(var(--p) / 0.4),
-        transparent 60%
-    );
-    animation: title-glow 3s ease-in-out infinite alternate;
-    will-change: opacity, transform;
-}
-
-@keyframes title-glow {
-    0% {
-        opacity: 0.1;
-        transform: scale(0.9);
-    }
-    100% {
-        opacity: 0.3;
-        transform: scale(1.1);
     }
 }
 
@@ -822,6 +955,16 @@ html {
     background-color: hsl(var(--b1));
 }
 
+.odometer {
+    font-family: 'Kind Sans', sans-serif;
+    line-height: 1.2;
+}
+
+.odometer.odometer-auto-theme,
+.odometer.odometer-theme-minimal {
+    @apply text-4xl font-extrabold text-base-content;
+}
+
 @media (prefers-reduced-motion: reduce) {
     *,
     ::before,
@@ -861,13 +1004,13 @@ html {
     .animate-cta-pulse,
     .group-hover\:animate-icon-bounce,
     .animate-icon-pulse-green,
-    .title-glow {
-        animation: none !important;
+    [data-vanilla-tilt] {
         transform: none !important;
     }
 
-    [data-vanilla-tilt] {
-        transform: none !important;
+    .odometer {
+        animation: none !important;
+        transition: none !important;
     }
 }
 </style>

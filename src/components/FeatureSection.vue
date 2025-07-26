@@ -32,10 +32,9 @@ withDefaults(defineProps<Props>(), {
             <div class="feature-icon-wrapper">
                 <component
                     :is="icon"
-                    class="h-32 w-32 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6"
+                    class="h-32 w-32 transition-all duration-500 group-hover:scale-110"
                     :class="`text-${iconColor}`"
                 />
-                <div class="feature-icon-glow" :class="`bg-${iconColor}`"></div>
             </div>
         </div>
 
@@ -84,11 +83,6 @@ withDefaults(defineProps<Props>(), {
 
 .feature-icon-wrapper {
     @apply relative;
-}
-
-.feature-icon-glow {
-    @apply absolute inset-0 rounded-full opacity-0 transition-all duration-500 blur-sm;
-    transform: scale(1.5);
 }
 
 .group:hover .feature-icon-glow {

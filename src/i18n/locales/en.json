@@ -85,5 +85,15 @@
     },
     "lang": "Language",
     "lang_en": "English",
-    "lang_ru": "Русский"
+    "lang_ru": "Русский",
+    "analytics": {
+        "title": "CollapseLoader Analytics",
+        "desc": "Live statistics about CollapseLoader usage and downloads.",
+        "loader_launches": "Loader Launches",
+        "loader_launches_desc": "Total times CollapseLoader has been launched.",
+        "client_downloads": "Client Downloads",
+        "client_downloads_desc": "Total downloads of all clients.",
+        "client_launches": "Client Launches",
+        "client_launches_desc": "Total launches of all clients."
+    }
 }

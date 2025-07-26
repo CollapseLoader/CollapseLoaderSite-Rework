@@ -154,7 +154,7 @@ onMounted(() => {
                 href="https://github.com/dest4590/CollapseLoader"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="btn btn-ghost btn-circle hover:scale-110 hover:rotate-12 transition-all duration-300"
+                class="btn btn-ghost btn-circle hover:scale-110 transition-all duration-300"
                 aria-label="GitHub Repository"
             >
                 <Github class="h-6 w-6" />
