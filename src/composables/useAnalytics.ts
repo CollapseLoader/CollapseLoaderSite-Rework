@@ -28,7 +28,7 @@ export function useAnalytics() {
 
     async function refetch() {
         try {
-            const data: Analytics = await fetchJSON('https://api.collapseloader.org/api/statistics');
+            const data: Analytics = await fetchJSON('https://auth.collapseloader.org/api/statistics');
             if (data) {
                 totalLoaderLaunches.value = data.total_loader_launches;
                 totalClientLaunches.value = data.total_client_launches;
