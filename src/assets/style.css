@@ -76,15 +76,6 @@
     }
 }
 
-@keyframes pan-grid {
-    0% {
-        background-position: 0% 0%;
-    }
-    100% {
-        background-position: 3rem 3rem;
-    }
-}
-
 @keyframes glow-pulse {
     0%,
     100% {
@@ -92,31 +83,6 @@
     }
     50% {
         box-shadow: 0 0 20px hsl(var(--p) / 0.6), 0 0 30px hsl(var(--p) / 0.4);
-    }
-}
-
-@keyframes text-shimmer {
-    0% {
-        background-position: -200% center;
-    }
-    100% {
-        background-position: 200% center;
-    }
-}
-
-@keyframes bounce-gentle {
-    0%,
-    20%,
-    50%,
-    80%,
-    100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-10px);
-    }
-    60% {
-        transform: translateY(-5px);
     }
 }
 
@@ -134,66 +100,13 @@
 
 .card:hover {
     @apply shadow-2xl;
-    transform: translateY(-8px) rotateX(2deg);
-}
-
-.text-shimmer {
-    background: linear-gradient(
-        90deg,
-        currentColor 25%,
-        hsl(var(--p)) 50%,
-        currentColor 75%
-    );
-    background-size: 200% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    animation: text-shimmer 3s ease-in-out infinite;
+    transform: translateY(-8px);
 }
 
 .btn:focus,
 .link:focus {
     @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-base-100;
     animation: glow-pulse 1s ease-out;
-}
-
-.badge-interactive {
-    @apply transition-all duration-300 cursor-pointer;
-}
-
-.badge-interactive:hover {
-    @apply shadow-lg scale-110;
-    animation: bounce-gentle 1s ease-in-out;
-}
-
-.loading-enhanced {
-    position: relative;
-    overflow: hidden;
-}
-
-.loading-enhanced::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.2),
-        transparent
-    );
-    animation: loading-shimmer 1.5s infinite;
-}
-
-@keyframes loading-shimmer {
-    0% {
-        left: -100%;
-    }
-    100% {
-        left: 100%;
-    }
 }
 
 .animate-on-scroll {

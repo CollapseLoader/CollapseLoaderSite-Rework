@@ -53,22 +53,14 @@
             "badges": ["Global Chat", "In any Client"]
         }
     },
-    "safety": {
-        "title": "Trust & Transparency",
-        "desc": "Our commitment to open source means CollapseLoader will always be safe. Anyone can audit the code to verify its integrity.",
-        "public": "Public source code",
-        "reviewed": "Community reviewed & audited",
-        "no_malware": "No hidden malware or backdoors",
-        "review": "Review the Code",
-        "verify": "Don't Trust. Verify.",
-        "verify_desc": "We encourage you to inspect the code yourself. The entire project is built on the principle of verifiable trust."
-    },
     "download": {
         "title": "Get Started",
         "desc": "Download the latest version of CollapseLoader and enjoy a safer, more powerful Minecraft experience.",
         "latest": "Latest Release",
         "latest_desc": "Get the newest version of CollapseLoader with all the latest features and updates.",
         "get_latest": "Download Latest",
+    "linux_appimage": "Linux — AppImage",
+    "linux_deb": "Linux — Debian (.deb)",
         "view_all": "View All Versions",
         "source_code": "Source Code",
         "source_code_desc": "Access the complete source code of CollapseLoader on GitHub.",

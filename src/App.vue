@@ -2,7 +2,7 @@
 import { useAnalytics } from '@/composables/useAnalytics';
 import { useGitHubReleases } from '@/composables/useGitHubReleases';
 import VanillaTilt from 'vanilla-tilt';
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 declare global {
@@ -14,14 +14,13 @@ declare global {
 import AppHeader from '@/components/AppHeader.vue';
 import ExclusiveFeatures from '@/components/ExclusiveFeatures.vue';
 import FeatureCard from '@/components/FeatureCard.vue';
+import DownloadCard from '@/components/DownloadCard.vue';
 import ScrollProgress from '@/components/ScrollProgress.vue';
 
 import {
     BarChart,
-    CheckCircle,
     ChevronRight,
     Download,
-    FileSearch,
     Github,
     Rocket,
     ShieldCheck,
@@ -39,7 +38,41 @@ const {
     latestReleaseLoaded,
     latestPrereleaseUrl,
     latestPrereleaseLoaded,
+    latestLinuxAppImageUrl,
+    latestLinuxDebUrl,
+    latestPreLinuxAppImageUrl,
+    latestPreLinuxDebUrl,
 } = useGitHubReleases('https://api.github.com/repos/dest4590/CollapseLoader');
+
+const isLinux = computed(() => /linux/i.test(navigator.userAgent));
+const releasesPage = 'https://github.com/dest4590/CollapseLoader/releases';
+const latestHref = computed(() => {
+    if (isLinux.value) return releasesPage;
+    return latestReleaseUrl.value || releasesPage;
+});
+const prereleaseHref = computed(() => {
+    if (isLinux.value) return releasesPage;
+    return latestPrereleaseUrl.value || releasesPage;
+});
+const latestLinuxOptions = computed(() => {
+    const options: Array<{ label: string; href: string }> = [];
+    if (latestLinuxAppImageUrl.value)
+        options.push({ label: 'AppImage', href: latestLinuxAppImageUrl.value });
+    if (latestLinuxDebUrl.value)
+        options.push({ label: 'Deb', href: latestLinuxDebUrl.value });
+    return options;
+});
+const preLinuxOptions = computed(() => {
+    const options: Array<{ label: string; href: string }> = [];
+    if (latestPreLinuxAppImageUrl.value)
+        options.push({
+            label: 'AppImage',
+            href: latestPreLinuxAppImageUrl.value,
+        });
+    if (latestPreLinuxDebUrl.value)
+        options.push({ label: 'Deb', href: latestPreLinuxDebUrl.value });
+    return options;
+});
 
 const { totalLoaderLaunches, totalClientDownloads, totalClientLaunches } =
     useAnalytics();
@@ -53,8 +86,6 @@ onMounted(() => {
         VanillaTilt.init(tiltElement.value, {
             max: 25,
             speed: 400,
-            glare: true,
-            'max-glare': 0.15,
             scale: 1.02,
         });
     }
@@ -65,7 +96,6 @@ onMounted(() => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
                     if (entry.target === analyticsRef.value) {
-                        // Initialize odometers only once when analytics section is visible
                         loaderOdometer.value = new window.Odometer({
                             el: document.querySelector(
                                 '#loader-launches-odometer'
@@ -228,7 +258,6 @@ watch(totalClientLaunches, (val) => {
                         class="showcase-wrapper relative"
                         style="--stagger: 1"
                     >
-                        <div class="showcase-glow"></div>
                         <div
                             class="showcase shadow-2xl hover:shadow-primary/20 group"
                         >
@@ -378,90 +407,6 @@ watch(totalClientLaunches, (val) => {
                 </div>
             </section>
 
-            <section id="safety" class="relative py-24">
-                <div class="section-wave-divider-bottom"></div>
-                <div class="bg-base-100 py-24">
-                    <div
-                        class="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center"
-                    >
-                        <div
-                            class="text-center md:text-left animate-on-scroll anim-fade-left"
-                        >
-                            <h2 class="section-title !text-left !mx-0">
-                                {{ t('safety.title') }}
-                            </h2>
-                            <p class="text-lg text-base-content/80">
-                                {{ t('safety.desc') }}
-                            </p>
-                            <ul class="space-y-4 mt-6 text-left">
-                                <li
-                                    class="flex items-start gap-3 animate-on-scroll anim-fade-up"
-                                    style="--delay: 100ms"
-                                >
-                                    <CheckCircle
-                                        class="h-6 w-6 text-success shrink-0 mt-1 animate-icon-pulse-green"
-                                    /><span class="font-semibold">{{
-                                        t('safety.public')
-                                    }}</span>
-                                </li>
-                                <li
-                                    class="flex items-start gap-3 animate-on-scroll anim-fade-up"
-                                    style="--delay: 200ms"
-                                >
-                                    <CheckCircle
-                                        class="h-6 w-6 text-success shrink-0 mt-1 animate-icon-pulse-green"
-                                    /><span class="font-semibold">{{
-                                        t('safety.reviewed')
-                                    }}</span>
-                                </li>
-                                <li
-                                    class="flex items-start gap-3 animate-on-scroll anim-fade-up"
-                                    style="--delay: 300ms"
-                                >
-                                    <CheckCircle
-                                        class="h-6 w-6 text-success shrink-0 mt-1 animate-icon-pulse-green"
-                                    /><span class="font-semibold">{{
-                                        t('safety.no_malware')
-                                    }}</span>
-                                </li>
-                            </ul>
-                            <a
-                                href="https://github.com/dest4590/CollapseLoader"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="btn btn-primary no-underline mt-8 animate-on-scroll anim-fade-up"
-                                style="--delay: 400ms"
-                            >
-                                {{ t('safety.review') }}
-                            </a>
-                        </div>
-                        <div
-                            class="card card-glass shadow-xl p-8 hover:shadow-2xl transition-all duration-300 group border border-base-content/10 animate-on-scroll anim-scale-in"
-                            style="--delay: 200ms"
-                        >
-                            <figure class="px-10 pt-10 pb-6">
-                                <FileSearch
-                                    class="h-24 w-24 text-primary transition-transform duration-300 group-hover:scale-110"
-                                />
-                            </figure>
-                            <div
-                                class="card-body items-center text-center pt-0"
-                            >
-                                <h2 class="card-title text-2xl">
-                                    {{ t('safety.verify') }}
-                                </h2>
-                                <p class="text-base-content/70">
-                                    {{ t('safety.verify_desc') }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    class="section-wave-divider-top transform scale-y-[-1] rotate-180"
-                ></div>
-            </section>
-
             <section
                 id="download"
                 class="py-32 bg-base-200/95 backdrop-blur-sm relative"
@@ -485,116 +430,41 @@ watch(totalClientLaunches, (val) => {
                     <div
                         class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center"
                     >
-                        <div
-                            class="card-download group animate-on-scroll anim-scale-in hover:scale-105 transition-all duration-300"
-                            style="--delay: 200ms"
-                        >
-                            <div
-                                class="card-body p-8 text-center flex flex-col"
-                            >
-                                <Rocket
-                                    class="download-icon text-primary h-16 w-16 mx-auto mb-4"
-                                />
-                                <h3 class="card-title text-2xl mb-2">
-                                    {{ t('download.latest') }}
-                                </h3>
-                                <p class="text-base-content/70 mb-6 grow">
-                                    {{ t('download.latest_desc') }}
-                                </p>
-                                <a
-                                    :href="
-                                        latestReleaseUrl ||
-                                        'https://github.com/dest4590/CollapseLoader/releases'
-                                    "
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="btn btn-download"
-                                    :class="{
-                                        'btn-disabled loading':
-                                            !latestReleaseLoaded &&
-                                            !latestReleaseUrl,
-                                        'btn-success':
-                                            latestReleaseLoaded &&
-                                            latestReleaseUrl,
-                                    }"
-                                >
-                                    <span v-if="latestReleaseLoaded">{{
-                                        t('download.get_latest')
-                                    }}</span>
-                                    <span v-else>Loading...</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div
-                            class="card-download group animate-on-scroll anim-scale-in hover:scale-105 transition-all duration-300"
-                            style="--delay: 300ms"
-                        >
-                            <div
-                                class="card-body p-8 text-center flex flex-col"
-                            >
-                                <Download
-                                    class="download-icon text-primary h-16 w-16 mx-auto mb-4"
-                                />
-                                <h3
-                                    class="card-title text-2xl mb-2 text-primary"
-                                >
-                                    Nightly
-                                </h3>
-                                <p class="text-base-content/70 mb-6 grow">
-                                    {{ t('download.nightly_desc') }}
-                                </p>
-                                <a
-                                    :href="
-                                        latestPrereleaseUrl ||
-                                        'https://github.com/dest4590/CollapseLoader/releases'
-                                    "
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="btn btn-download"
-                                    :class="{
-                                        'btn-disabled loading':
-                                            !latestPrereleaseLoaded &&
-                                            !latestPrereleaseUrl,
-                                        'btn-success':
-                                            latestPrereleaseLoaded &&
-                                            latestPrereleaseUrl,
-                                    }"
-                                >
-                                    <span v-if="latestPrereleaseLoaded">{{
-                                        t('download.get_nightly')
-                                    }}</span>
-                                    <span v-else>Loading...</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div
-                            class="card-download group animate-on-scroll anim-scale-in hover:scale-105 transition-all duration-300"
-                            style="--delay: 400ms"
-                        >
-                            <div
-                                class="card-body p-8 text-center flex flex-col"
-                            >
-                                <Github
-                                    class="download-icon text-primary h-16 w-16 mx-auto mb-4"
-                                />
-                                <h3
-                                    class="card-title text-2xl mb-2 text-primary"
-                                >
-                                    {{ t('download.source_code') }}
-                                </h3>
-                                <p class="text-base-content/70 mb-6 grow">
-                                    {{ t('download.source_code_desc') }}
-                                </p>
-                                <a
-                                    href="https://github.com/dest4590/CollapseLoader"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="btn btn-download btn-accent"
-                                >
-                                    {{ t('download.view_source') }}
-                                </a>
-                            </div>
-                        </div>
+                        <DownloadCard
+                            :icon="Rocket"
+                            :title="t('download.latest')"
+                            :description="t('download.latest_desc')"
+                            :href="latestHref"
+                            :cta-text="t('download.get_latest')"
+                            :loading="!latestReleaseLoaded && !latestReleaseUrl"
+                            variant="primary"
+                            :delay="200"
+                            :options="isLinux ? latestLinuxOptions : []"
+                        />
+
+                        <DownloadCard
+                            :icon="Download"
+                            :title="'Nightly'"
+                            :description="t('download.nightly_desc')"
+                            :href="prereleaseHref"
+                            :cta-text="t('download.get_nightly')"
+                            :loading="
+                                !latestPrereleaseLoaded && !latestPrereleaseUrl
+                            "
+                            variant="secondary"
+                            :delay="300"
+                            :options="isLinux ? preLinuxOptions : []"
+                        />
+
+                        <DownloadCard
+                            :icon="Github"
+                            :title="t('download.source_code')"
+                            :description="t('download.source_code_desc')"
+                            href="https://github.com/dest4590/CollapseLoader"
+                            :cta-text="t('download.view_source')"
+                            variant="accent"
+                            :delay="400"
+                        />
                     </div>
                 </div>
             </section>
@@ -704,24 +574,8 @@ html {
     transform-style: preserve-3d;
     perspective: 1500px;
 }
-.showcase-glow {
-    position: absolute;
-    inset: -20px;
-    background: radial-gradient(
-        circle at 50% 50%,
-        hsl(var(--p) / 0.15),
-        transparent 70%
-    );
-    transition: opacity 0.4s ease;
-    opacity: 0;
-    transform: translateZ(-50px);
-}
-.showcase-wrapper:hover .showcase-glow {
-    opacity: 1;
-}
-
 .showcase {
-    aspect-ratio: 743 / 424;
+    aspect-ratio: 897 / 550;
     background-image: url('@/assets/img/loader-back.png');
     background-size: cover;
     transform-style: preserve-3d;
@@ -735,8 +589,9 @@ html {
     background-size: cover;
     transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
 }
+
 .showcase:hover .showcase-front {
-    transform: translateZ(20px) scale(1.03);
+    transform: translateZ(40px) scale(1.03);
 }
 
 @keyframes icon-bounce {
@@ -888,42 +743,8 @@ html {
     will-change: transform, box-shadow, border-color, background-color;
 }
 .card-icon {
-    @apply rounded-lg p-4 transition-all duration-400 group-hover:scale-110 group-hover:rotate-6;
+    @apply rounded-lg p-4 transition-all duration-400 group-hover:scale-110;
     will-change: transform;
-}
-
-.card-download {
-    @apply card bg-base-100 shadow-xl transition-all duration-300;
-    @apply hover:shadow-2xl hover:-translate-y-2;
-    border-color: currentColor;
-    will-change: transform, box-shadow;
-}
-.card-download:hover {
-    border-color: hsl(var(--p) / 0.5);
-}
-.card-download:nth-child(1) {
-    @apply text-primary;
-    --tw-shadow-color: hsl(var(--p) / 0.1);
-}
-.card-download:nth-child(1):hover {
-    --tw-shadow-color: hsl(var(--p) / 0.3);
-    border-color: hsl(var(--p));
-}
-.card-download:nth-child(2) {
-    @apply text-secondary;
-    --tw-shadow-color: hsl(var(--s) / 0.1);
-}
-.card-download:nth-child(2):hover {
-    --tw-shadow-color: hsl(var(--s) / 0.3);
-    border-color: hsl(var(--s));
-}
-.card-download:nth-child(3) {
-    @apply text-accent;
-    --tw-shadow-color: hsl(var(--a) / 0.1);
-}
-.card-download:nth-child(3):hover {
-    --tw-shadow-color: hsl(var(--a) / 0.3);
-    border-color: hsl(var(--a));
 }
 
 .section-wave-divider-top,
@@ -982,10 +803,6 @@ html {
         transition: none !important;
     }
 
-    .showcase-glow {
-        opacity: 0 !important;
-        transition: none !important;
-    }
     .showcase:hover .showcase-front {
         transform: none !important;
         transition: none !important;

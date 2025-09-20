@@ -41,13 +41,10 @@ onMounted(() => {
         :style="{ '--delay': `${delay}ms` }"
     >
         <div class="card-body items-center text-center p-8 relative z-10">
-            <div class="card-icon-wrapper group-hover:icon-hovered">
+            <div class="card-icon-wrapper">
                 <div
                     class="card-icon transition-all duration-500"
-                    :class="[
-                        'bg-primary/10 text-primary border-primary/20',
-                        'group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-lg',
-                    ]"
+                    :class="['bg-primary/10 text-primary border-primary/20']"
                 >
                     <component
                         :is="icon"
@@ -62,7 +59,6 @@ onMounted(() => {
 
             <h3
                 class="card-title text-xl mt-6 mb-3 transition-all duration-300"
-                :class="['group-hover:text-primary group-hover:scale-105']"
             >
                 {{ title }}
             </h3>
