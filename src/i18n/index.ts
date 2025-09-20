@@ -9,7 +9,8 @@ const messages = {
 };
 
 const getBrowserLanguage = () => {
-    const browserLang = navigator.language.split('-')[0];
+    const rawLang = navigator && (navigator.language ?? 'en');
+    const browserLang: string = (String(rawLang).split('-')[0] || 'en');
     const supportedLanguages = ['en', 'ru'];
     return supportedLanguages.includes(browserLang) ? browserLang : 'en';
 };
@@ -38,10 +39,10 @@ export const changeLanguage = async (locale: string) => {
     i18n.global.locale.value = locale as any;
     localStorage.setItem('language', locale);
     document.documentElement.setAttribute('lang', locale);
-    
+
     const currentPath = window.location.pathname;
     const currentLang = currentPath.split('/')[1];
-    
+
     if (currentLang === 'en' || currentLang === 'ru') {
         const newPath = currentPath.replace(`/${currentLang}`, `/${locale}`);
         window.history.pushState({}, '', newPath);
