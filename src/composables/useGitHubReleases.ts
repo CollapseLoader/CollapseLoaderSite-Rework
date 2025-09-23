@@ -22,6 +22,13 @@ export function useGitHubReleases(repoUrl: string) {
     const latestPreLinuxAppImageUrl = ref<string>('');
     const latestPreLinuxDebUrl = ref<string>('');
 
+    const latestWindowsExeUrl = ref<string>('');
+    const latestWindowsMsiUrl = ref<string>('');
+    const latestWindowsSetupUrl = ref<string>('');
+    const latestPreWindowsExeUrl = ref<string>('');
+    const latestPreWindowsMsiUrl = ref<string>('');
+    const latestPreWindowsSetupUrl = ref<string>('');
+
     async function fetchJSON(url: string): Promise<any> {
         try {
             const response = await fetch(url);
@@ -53,6 +60,29 @@ export function useGitHubReleases(repoUrl: string) {
         return result;
     }
 
+    function pickWindowsAssets(assets: GitHubRelease['assets'] | undefined) {
+        const result = {
+            exe: '',
+            msi: '',
+            setup: '',
+        };
+        if (!assets) return result;
+        for (const a of assets) {
+            const name = a?.name?.toLowerCase?.() || '';
+            if (name.endsWith('.exe')) {
+                if (!result.setup && name.includes('setup')) {
+                    result.setup = a.browser_download_url;
+                } else if (!result.exe && !name.includes('setup')) {
+                    result.exe = a.browser_download_url;
+                }
+            }
+            if (!result.msi && name.endsWith('.msi')) {
+                result.msi = a.browser_download_url;
+            }
+        }
+        return result;
+    }
+
     async function fetchLatestRelease(): Promise<void> {
         latestReleaseLoaded.value = false;
         try {
@@ -61,6 +91,10 @@ export function useGitHubReleases(repoUrl: string) {
             const linux = pickLinuxAssets(data?.assets);
             latestLinuxAppImageUrl.value = linux.appImage;
             latestLinuxDebUrl.value = linux.deb;
+            const windows = pickWindowsAssets(data?.assets);
+            latestWindowsExeUrl.value = windows.exe;
+            latestWindowsMsiUrl.value = windows.msi;
+            latestWindowsSetupUrl.value = windows.setup;
         } catch (err) {
             error.value = 'Failed to fetch latest release';
             console.error('Failed to fetch latest release:', err);
@@ -80,6 +114,10 @@ export function useGitHubReleases(repoUrl: string) {
             const linux = pickLinuxAssets(latestPrerelease?.assets);
             latestPreLinuxAppImageUrl.value = linux.appImage;
             latestPreLinuxDebUrl.value = linux.deb;
+            const windows = pickWindowsAssets(latestPrerelease?.assets);
+            latestPreWindowsExeUrl.value = windows.exe;
+            latestPreWindowsMsiUrl.value = windows.msi;
+            latestPreWindowsSetupUrl.value = windows.setup;
         } catch (err) {
             error.value = 'Failed to fetch latest prerelease';
             console.error('Failed to fetch latest prerelease:', err);
@@ -104,6 +142,12 @@ export function useGitHubReleases(repoUrl: string) {
         latestLinuxDebUrl,
         latestPreLinuxAppImageUrl,
         latestPreLinuxDebUrl,
+        latestWindowsExeUrl,
+        latestWindowsMsiUrl,
+        latestWindowsSetupUrl,
+        latestPreWindowsExeUrl,
+        latestPreWindowsMsiUrl,
+        latestPreWindowsSetupUrl,
         error,
         refetch: () => Promise.all([fetchLatestRelease(), fetchLatestPrerelease()])
     };

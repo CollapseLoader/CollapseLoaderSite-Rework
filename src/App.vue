@@ -42,16 +42,23 @@ const {
     latestLinuxDebUrl,
     latestPreLinuxAppImageUrl,
     latestPreLinuxDebUrl,
+    latestWindowsExeUrl,
+    latestWindowsMsiUrl,
+    latestWindowsSetupUrl,
+    latestPreWindowsExeUrl,
+    latestPreWindowsMsiUrl,
+    latestPreWindowsSetupUrl,
 } = useGitHubReleases('https://api.github.com/repos/dest4590/CollapseLoader');
 
 const isLinux = computed(() => /linux/i.test(navigator.userAgent));
+const isWindows = computed(() => /windows/i.test(navigator.userAgent));
 const releasesPage = 'https://github.com/dest4590/CollapseLoader/releases';
 const latestHref = computed(() => {
-    if (isLinux.value) return releasesPage;
+    if (isLinux.value || isWindows.value) return releasesPage;
     return latestReleaseUrl.value || releasesPage;
 });
 const prereleaseHref = computed(() => {
-    if (isLinux.value) return releasesPage;
+    if (isLinux.value || isWindows.value) return releasesPage;
     return latestPrereleaseUrl.value || releasesPage;
 });
 const latestLinuxOptions = computed(() => {
@@ -71,6 +78,29 @@ const preLinuxOptions = computed(() => {
         });
     if (latestPreLinuxDebUrl.value)
         options.push({ label: 'Deb', href: latestPreLinuxDebUrl.value });
+    return options;
+});
+const latestWindowsOptions = computed(() => {
+    const options: Array<{ label: string; href: string }> = [];
+    if (latestWindowsExeUrl.value)
+        options.push({ label: 'EXE', href: latestWindowsExeUrl.value });
+    if (latestWindowsSetupUrl.value)
+        options.push({ label: 'Setup', href: latestWindowsSetupUrl.value });
+    if (latestWindowsMsiUrl.value)
+        options.push({ label: 'MSI', href: latestWindowsMsiUrl.value });
+    return options;
+});
+const preWindowsOptions = computed(() => {
+    const options: Array<{ label: string; href: string }> = [];
+    if (latestPreWindowsExeUrl.value)
+        options.push({
+            label: 'EXE',
+            href: latestPreWindowsExeUrl.value,
+        });
+    if (latestPreWindowsSetupUrl.value)
+        options.push({ label: 'Setup', href: latestPreWindowsSetupUrl.value });
+    if (latestPreWindowsMsiUrl.value)
+        options.push({ label: 'MSI', href: latestPreWindowsMsiUrl.value });
     return options;
 });
 
@@ -439,7 +469,13 @@ watch(totalClientLaunches, (val) => {
                             :loading="!latestReleaseLoaded && !latestReleaseUrl"
                             variant="primary"
                             :delay="200"
-                            :options="isLinux ? latestLinuxOptions : []"
+                            :options="
+                                isLinux
+                                    ? latestLinuxOptions
+                                    : isWindows
+                                    ? latestWindowsOptions
+                                    : []
+                            "
                         />
 
                         <DownloadCard
@@ -453,7 +489,13 @@ watch(totalClientLaunches, (val) => {
                             "
                             variant="secondary"
                             :delay="300"
-                            :options="isLinux ? preLinuxOptions : []"
+                            :options="
+                                isLinux
+                                    ? preLinuxOptions
+                                    : isWindows
+                                    ? preWindowsOptions
+                                    : []
+                            "
                         />
 
                         <DownloadCard
@@ -471,31 +513,38 @@ watch(totalClientLaunches, (val) => {
         </main>
 
         <footer
-            class="footer footer-center p-10 bg-base-300 text-base-content relative"
+            class="footer footer-center px-4 py-8 sm:px-6 md:px-8 lg:p-10 bg-base-300 text-base-content relative"
         >
             <div
                 class="section-wave-divider-bottom"
                 style="top: 0px; transform: translateY(-100%)"
             ></div>
-            <aside class="animate-on-scroll anim-fade-up">
-                <p class="text-2xl font-bold text-primary">{{ t('brand') }}</p>
-                <p v-html="t('footer.desc')"></p>
-                <p>{{ t('footer.copyright') }}</p>
+            <aside
+                class="animate-on-scroll anim-fade-up text-center space-y-2 sm:space-y-3"
+            >
+                <p class="text-xl sm:text-2xl font-bold text-primary">
+                    {{ t('brand') }}
+                </p>
+                <p
+                    class="text-sm sm:text-base leading-relaxed max-w-md mx-auto"
+                    v-html="t('footer.desc')"
+                ></p>
+                <p class="text-xs sm:text-sm text-base-content/80">
+                    {{ t('footer.copyright') }}
+                </p>
             </aside>
-            <nav class="animate-on-scroll anim-fade-up" style="--delay: 100ms">
-                <div class="grid grid-flow-col gap-4">
-                    <a
-                        href="https://github.com/dest4590/CollapseLoader/discussions"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="link link-hover"
-                        >{{ t('footer.discussions') }}</a
-                    >
+            <nav
+                class="animate-on-scroll anim-fade-up mt-6 sm:mt-8"
+                style="--delay: 100ms"
+            >
+                <div
+                    class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
+                >
                     <a
                         href="https://github.com/dest4590/CollapseLoader/issues"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="link link-hover"
+                        class="link link-hover text-sm sm:text-base hover:text-primary transition-colors"
                         >{{ t('footer.issues') }}</a
                     >
                     <a
@@ -505,10 +554,12 @@ watch(totalClientLaunches, (val) => {
                         aria-label="GitHub Repository"
                         class="hover:text-primary transition-colors"
                     >
-                        <Github class="h-6 w-6" />
+                        <Github class="h-5 w-5 sm:h-6 sm:w-6" />
                     </a>
                 </div>
-                <p class="text-xs text-base-content/60 max-w-xs mx-auto pt-4">
+                <p
+                    class="text-xs sm:text-sm text-base-content/60 max-w-xs sm:max-w-sm mx-auto pt-4 sm:pt-6 leading-relaxed text-center"
+                >
                     {{ t('footer.not_affiliated') }}
                 </p>
             </nav>

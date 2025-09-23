@@ -79,8 +79,13 @@ onMounted(() => {
                 </ul>
             </div>
             <a
-                class="btn btn-ghost text-2xl font-bold text-primary tracking-wide hover:scale-105 transition-transform"
+                class="btn btn-ghost text-2xl font-bold text-primary tracking-wide hover:scale-105 transition-transform flex items-center gap-2"
             >
+                <img
+                    src="@/assets/img/collapse.svg"
+                    alt="CollapseLoader Logo"
+                    class="h-8 w-8"
+                />
                 {{ $t('brand') }}
             </a>
         </div>
