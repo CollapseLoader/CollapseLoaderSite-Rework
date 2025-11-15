@@ -32,6 +32,7 @@ const { t } = useI18n();
 const tiltElement = ref<HTMLElement | null>(null);
 const heroRef = ref<HTMLElement | null>(null);
 const analyticsRef = ref<HTMLElement | null>(null);
+const isLinux = ref(false);
 
 const {
     latestReleaseUrl,
@@ -50,7 +51,6 @@ const {
     latestPreWindowsSetupUrl,
 } = useGitHubReleases('https://api.github.com/repos/dest4590/CollapseLoader');
 
-const isLinux = computed(() => /linux/i.test(navigator.userAgent));
 const isWindows = computed(() => /windows/i.test(navigator.userAgent));
 const releasesPage = 'https://github.com/dest4590/CollapseLoader/releases';
 const latestHref = computed(() => {
@@ -112,6 +112,14 @@ const downloadsOdometer = ref<any>(null);
 const launchesOdometer = ref<any>(null);
 
 onMounted(() => {
+    try {
+        const ua = navigator?.userAgent || '';
+        const pf = (navigator as any)?.platform || '';
+        isLinux.value = /linux/i.test(ua) || /linux/i.test(pf);
+    } catch (e) {
+        isLinux.value = false;
+    }
+
     if (tiltElement.value) {
         VanillaTilt.init(tiltElement.value, {
             max: 25,
@@ -456,6 +464,17 @@ watch(totalClientLaunches, (val) => {
                         style="--delay: 100ms"
                     >
                         {{ t('download.desc') }}
+                    </p>
+                    <p
+                        v-if="isLinux"
+                        class="section-subtitle text-sm mt-2 text-base-content/70"
+                    >
+                        {{
+                            t('download.aur_note', {
+                                pkg1: 'collapseloader-bin',
+                                pkg2: 'collapseloader-git',
+                            })
+                        }}
                     </p>
                     <div
                         class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center"
