@@ -85,7 +85,9 @@
         "copyright": "© 2025 CollapseLoader Project",
         "discussions": "Discussions",
         "issues": "Report an Issue",
-        "not_affiliated": "Minecraft is a trademark of Mojang Studios. This project is not affiliated with Mojang Studios."
+        "not_affiliated": "Minecraft is a trademark of Mojang Studios. This project is not affiliated with Mojang Studios.",
+        "discord": "Discord Server",
+        "telegram": "Telegram Channel"
     },
     "lang": "Language",
     "lang_en": "English",
@@ -99,5 +101,15 @@
         "client_downloads_desc": "Total number of client downloads.",
         "client_launches": "Client Launches",
         "client_launches_desc": "Total number of client launches."
+    },
+    "community": {
+        "title": "Join the Community",
+        "desc": "Get updates, ask questions, and share feedback.",
+        "discord_title": "Discord",
+        "discord_desc": "Chat with the community and get support.",
+        "discord_cta": "Join Discord",
+        "telegram_title": "Telegram",
+        "telegram_desc": "News, updates, and announcements.",
+        "telegram_cta": "Open Telegram"
     }
 }

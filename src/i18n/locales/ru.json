@@ -85,7 +85,9 @@
         "copyright": "© 2025 Проект CollapseLoader",
         "discussions": "Обсуждения",
         "issues": "Сообщить о проблеме",
-        "not_affiliated": "Minecraft — торговая марка Mojang Studios. Этот проект не связан с Mojang Studios."
+        "not_affiliated": "Minecraft — торговая марка Mojang Studios. Этот проект не связан с Mojang Studios.",
+        "discord": "Сервер Discord",
+        "telegram": "Telegram канал"
     },
     "lang": "Язык",
     "lang_en": "English",
@@ -99,5 +101,15 @@
         "client_downloads_desc": "Общее количество загрузок клиентов.",
         "client_launches": "Запуски клиентов",
         "client_launches_desc": "Общее количество запусков клиентов."
+    },
+    "community": {
+        "title": "Сообщество",
+        "desc": "Новости, поддержка и общение с сообществом.",
+        "discord_title": "Discord",
+        "discord_desc": "Чат с сообществом и помощь.",
+        "discord_cta": "Перейти в Discord",
+        "telegram_title": "Telegram",
+        "telegram_desc": "Новости, обновления и анонсы.",
+        "telegram_cta": "Открыть Telegram"
     }
 }
