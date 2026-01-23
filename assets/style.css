@@ -34,12 +34,12 @@
 
 @font-face {
     font-family: 'Kind Sans';
-    src: url('@/assets/fonts/kindsans-bold.woff2') format('woff2');
+    src: url('~/assets/fonts/kindsans-bold.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Kind Sans Semibold';
-    src: url('@/assets/fonts/kindsans-semibold.woff2') format('woff2');
+    src: url('~/assets/fonts/kindsans-semibold.woff2') format('woff2');
 }
 
 @keyframes fadeIn {
@@ -47,6 +47,7 @@
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -58,6 +59,7 @@
         opacity: 0;
         transform: translateX(-30px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -68,19 +70,23 @@
     0% {
         box-shadow: 0 0 0 0 hsl(var(--p) / 0.4);
     }
+
     70% {
         box-shadow: 0 0 0 14px hsl(var(--p) / 0);
     }
+
     100% {
         box-shadow: 0 0 0 0 hsl(var(--p) / 0);
     }
 }
 
 @keyframes glow-pulse {
+
     0%,
     100% {
         box-shadow: 0 0 5px hsl(var(--p) / 0.3);
     }
+
     50% {
         box-shadow: 0 0 20px hsl(var(--p) / 0.6), 0 0 30px hsl(var(--p) / 0.4);
     }
@@ -120,12 +126,15 @@
 .animate-on-scroll.anim-fade-up {
     transform: translateY(40px);
 }
+
 .animate-on-scroll.anim-fade-left {
     transform: translateX(-40px);
 }
+
 .animate-on-scroll.anim-fade-right {
     transform: translateX(40px);
 }
+
 .animate-on-scroll.anim-scale-in {
     transform: scale(0.9);
 }
@@ -140,4 +149,104 @@
 .select,
 .textarea {
     outline: none;
+}
+
+.glass-card {
+    @apply bg-base-100/60 backdrop-blur-xl border border-white/5 shadow-2xl;
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    backdrop-filter: blur(12px) saturate(140%);
+    border-color: rgba(255, 255, 255, 0.06);
+    transition: all 0.3s ease-out;
+}
+
+.text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-accent;
+}
+
+@keyframes glass-sheen {
+    0% {
+        background-position: -150% 0;
+    }
+
+    100% {
+        background-position: 150% 0;
+    }
+}
+
+@keyframes pop-in {
+    0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.995);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Gentle float and sheen for glass-style cards */
+.glass-card {
+    position: relative;
+    will-change: transform, box-shadow, backdrop-filter;
+    transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.2, 1),
+        box-shadow 0.45s ease, backdrop-filter 0.45s ease;
+}
+
+.glass-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(255, 255, 255, 0.06) 100%);
+    background-size: 200% 100%;
+    opacity: 0;
+    transition: opacity 0.45s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-8px) scale(1.005);
+    box-shadow: 0 20px 40px rgba(2, 6, 23, 0.45);
+}
+
+.glass-card:hover::before {
+    opacity: 1;
+    animation: glass-sheen 2.5s linear infinite;
+}
+
+/* Slight hover lift for primary buttons */
+.btn {
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px) scale(1.01);
+}
+
+/* Smooth appearance helper for JS-driven reveals */
+.smooth-appear {
+    animation: pop-in 560ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Make existing scroll animations slightly smoother */
+.animate-on-scroll {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Respect user's reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+
+    .glass-card,
+    .btn,
+    .animate-on-scroll,
+    .smooth-appear {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+
+    .glass-card::before {
+        display: none;
+    }
 }

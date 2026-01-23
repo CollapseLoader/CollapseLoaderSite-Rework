@@ -1,10 +1,24 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { useI18n } from 'vue-i18n';
-import FeatureSection from './FeatureSection.vue';
 import { Users, Settings, MessageCircle, MapPin } from 'lucide-vue-next';
 
 const { t, tm } = useI18n();
+
+const getBadges = (path: string) => {
+    const raw = tm(path);
+
+    // If the translation is an array (message AST), map indexes to real translated strings
+    if (Array.isArray(raw)) {
+        return raw.map((_, i) => t(`${path}.${i}`));
+    }
+
+    // If translation returns an array directly via t, use it
+    const maybeArray = t(path) as unknown;
+    if (Array.isArray(maybeArray)) return maybeArray as string[];
+
+    // Fallback: return a single translated string as an array
+    return [t(path) as string];
+};
 
 onMounted(() => {
     const observer = new IntersectionObserver(
@@ -26,69 +40,37 @@ onMounted(() => {
 </script>
 
 <template>
-    <section
-        id="exclusive-features"
-        class="py-32 bg-transparent relative"
-    >
+    <section id="exclusive-features" class="py-32 bg-transparent relative">
         <div class="container mx-auto px-6 text-center relative z-10">
             <div class="max-w-4xl mx-auto mb-20">
                 <h2 class="section-title animate-on-scroll anim-fade-up">
                     {{ t('features.title') }}
                 </h2>
-                <p
-                    class="section-subtitle animate-on-scroll anim-fade-up text-xl"
-                    style="--delay: 100ms"
-                >
+                <p class="section-subtitle animate-on-scroll anim-fade-up text-xl" style="--delay: 100ms">
                     {{ t('features.desc') }}
                 </p>
             </div>
         </div>
 
         <div class="container mx-auto px-6 space-y-32 mt-16">
-            <FeatureSection
-                :title="t('features.cloud.title')"
-                :description="t('features.cloud.desc')"
-                :icon="Users"
-                :badges="tm('features.cloud.badges')"
-                icon-color="primary"
-                :delay="0"
-            />
+            <FeatureSection :title="t('features.cloud.title')" :description="t('features.cloud.desc')" :icon="Users"
+                :badges="getBadges('features.cloud.badges')" icon-color="primary" :delay="0" />
 
-            <FeatureSection
-                :title="t('features.custom.title')"
-                :description="t('features.custom.desc')"
-                :icon="Settings"
-                :badges="tm('features.custom.badges')"
-                icon-color="primary"
-                :reverse="true"
-                :delay="200"
-            />
+            <FeatureSection :title="t('features.custom.title')" :description="t('features.custom.desc')"
+                :icon="Settings" :badges="getBadges('features.custom.badges')" icon-color="primary" :reverse="true"
+                :delay="200" />
 
-            <FeatureSection
-                :title="t('features.cord.title')"
-                :description="t('features.cord.desc')"
-                :icon="MapPin"
-                :badges="tm('features.cord.badges')"
-                icon-color="primary"
-                :delay="400"
-            />
+            <FeatureSection :title="t('features.cord.title')" :description="t('features.cord.desc')" :icon="MapPin"
+                :badges="getBadges('features.cord.badges')" icon-color="primary" :delay="400" />
 
-            <FeatureSection
-                :title="t('features.irc.title')"
-                :description="t('features.irc.desc')"
-                :icon="MessageCircle"
-                :badges="tm('features.irc.badges')"
-                icon-color="primary"
-                :reverse="true"
-                :delay="600"
-            />
+            <FeatureSection :title="t('features.irc.title')" :description="t('features.irc.desc')" :icon="MessageCircle"
+                :badges="getBadges('features.irc.badges')" icon-color="primary" :reverse="true" :delay="600" />
         </div>
     </section>
 </template>
 
 <style scoped>
-@reference "tailwindcss";
-@plugin "daisyui";
+@reference "../assets/style.css";
 
 .section-title {
     @apply text-4xl md:text-5xl font-bold mb-4 text-center;

@@ -1,0 +1,150 @@
+{
+    "back": "Назад",
+    "search_clients": "Поиск клиентов",
+    "launches": "запусков",
+    "no_clients_found": "Клиенты не найдены",
+    "brand": "CollapseLoader",
+    "lang": "Язык",
+    "lang_en": "Английский",
+    "lang_ru": "Русский",
+    "nav": {
+        "why": "Почему мы",
+        "features": "Функции",
+        "safety": "Безопасность",
+        "download": "Скачать",
+        "clients": "Клиенты"
+    },
+    "hero": {
+        "title": "CollapseLoader",
+        "subtitle": "Запускайте клиенты Minecraft в один клик",
+        "desc": "Открытый лоадер с современным интерфейсом и большим каталогом клиентов.",
+        "download": "Скачать",
+        "source": "Исходный код",
+        "clients": "Каталог клиентов"
+    },
+    "why": {
+        "title": "Почему CollapseLoader",
+        "desc": "Скорость, безопасность и сообщество в одном месте.",
+        "open": {
+            "title": "Открытый исходный код",
+            "desc": "Чистая разработка, которую можно проверить."
+        },
+        "modern": {
+            "title": "Современно и быстро",
+            "desc": "Легкий интерфейс, плавные анимации и частые обновления."
+        },
+        "safe": {
+            "title": "Безопасность",
+            "desc": "Только проверенные клиенты и релизы."
+        }
+    },
+    "community": {
+        "title": "Сообщество",
+        "desc": "Присоединяйтесь к Discord и Telegram.",
+        "discord_title": "Discord",
+        "discord_desc": "Общайтесь с командой и получайте поддержку.",
+        "discord_cta": "Войти в Discord",
+        "telegram_title": "Telegram",
+        "telegram_desc": "Новости, анонсы и быстрые обновления.",
+        "telegram_cta": "Войти в Telegram"
+    },
+    "features": {
+        "title": "Эксклюзивные возможности",
+        "desc": "Все, что нужно для управления и запуска клиентов.",
+        "cloud": {
+            "title": "Облачные профили",
+            "desc": "Синхронизация настроек между устройствами.",
+            "badges": [
+                "Синхронизация",
+                "Бэкапы",
+                "Профили"
+            ]
+        },
+        "custom": {
+            "title": "Кастомизация",
+            "desc": "Темы, поведение и удобные настройки.",
+            "badges": [
+                "Темы",
+                "Моды",
+                "Шорткаты"
+            ]
+        },
+        "cord": {
+            "title": "Координаты и карты",
+            "desc": "Быстрый доступ к инструментам локаций.",
+            "badges": [
+                "Метки",
+                "Оверлей",
+                "Шеринг"
+            ]
+        },
+        "irc": {
+            "title": "Встроенный чат",
+            "desc": "Оставайтесь на связи, не выходя из лоадера.",
+            "badges": [
+                "Каналы",
+                "Уведомления",
+                "Статус"
+            ]
+        }
+    },
+    "analytics": {
+        "title": "Статистика",
+        "desc": "Реальные показатели использования CollapseLoader.",
+        "loader_launches": "Запуски лоадера",
+        "loader_launches_desc": "Сколько раз лоадер запускался.",
+        "client_downloads": "Скачивания клиентов",
+        "client_downloads_desc": "Суммарные скачивания всех клиентов.",
+        "client_launches": "Запуски клиентов",
+        "client_launches_desc": "Количество успешных запусков."
+    },
+    "download": {
+        "title": "Скачать CollapseLoader",
+        "desc": "Выберите стабильную версию или ночную сборку.",
+        "aur_note": "В Arch Linux установите {pkg1} или {pkg2} из AUR.",
+        "latest": "Последний релиз",
+        "latest_desc": "Стабильная версия для большинства пользователей.",
+        "get_latest": "Скачать",
+        "nightly_desc": "Предварительная сборка с новыми функциями.",
+        "get_nightly": "Скачать nightly",
+        "source_code": "Исходный код",
+        "source_code_desc": "Открыть репозиторий на GitHub.",
+        "view_source": "Открыть код"
+    },
+    "footer": {
+        "desc": "Открытый лоадер для клиентов Minecraft.",
+        "copyright": "© 2026 CollapseLoader. Все права защищены.",
+        "issues": "Сообщить о проблеме",
+        "discord": "Discord",
+        "telegram": "Telegram",
+        "not_affiliated": "Не связано с Mojang или Microsoft."
+    },
+    "clients": {
+        "seo_title": "каталог клиентов — CollapseLoader",
+        "seo_desc": "выбери лучший клиент для Minecraft и запусти его в один клик через наш лоадер",
+        "title": "Каталог клиентов",
+        "back_to_library": "назад в библиотеку",
+        "loading": "Загрузка...",
+        "detail": {
+            "description_title": "описание",
+            "launch": "запуск",
+            "launch_now": "запустить сейчас",
+            "loader_status": "статус лоадера",
+            "ready": "готов",
+            "safety": "безопасность",
+            "safety_desc": "Клиент проверен в песочнице. CollapseLoader гарантирует отсутствие вредоносного кода в файлах клиента.",
+            "stats": {
+                "downloads": "загрузки",
+                "version": "версия",
+                "type": "тип",
+                "status": "статус"
+            },
+            "seo_title_suffix": "скачать для Minecraft",
+            "og_title_suffix": "запуск через CollapseLoader",
+            "description_template": "Скачать {name} версии {version}. Проверенный клиент, тип: {type}.",
+            "description_paragraph": "Проверенный клиент для версии {version}. Тип сборки: {type}. Полностью совместим с CollapseLoader и готов к работе.",
+            "status_ok": "ок",
+            "status_error": "ошибка"
+        }
+    }
+}

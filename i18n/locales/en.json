@@ -1,0 +1,150 @@
+{
+    "back": "Back",
+    "search_clients": "Search clients",
+    "launches": "launches",
+    "no_clients_found": "No clients found",
+    "brand": "CollapseLoader",
+    "lang": "Language",
+    "lang_en": "English",
+    "lang_ru": "Russian",
+    "nav": {
+        "why": "Why us",
+        "features": "Features",
+        "safety": "Safety",
+        "download": "Download",
+        "clients": "Clients"
+    },
+    "hero": {
+        "title": "CollapseLoader",
+        "subtitle": "Launch Minecraft clients in one click",
+        "desc": "Open-source launcher with a modern UI and a curated client hub.",
+        "download": "Download",
+        "source": "Source code",
+        "clients": "Browse clients"
+    },
+    "why": {
+        "title": "Why CollapseLoader",
+        "desc": "Built for speed, security, and community.",
+        "open": {
+            "title": "Open source",
+            "desc": "Transparent codebase you can audit and contribute to."
+        },
+        "modern": {
+            "title": "Modern and fast",
+            "desc": "Lightweight UI, smooth animations, and quick updates."
+        },
+        "safe": {
+            "title": "Safe by design",
+            "desc": "Only trusted clients and verified releases."
+        }
+    },
+    "community": {
+        "title": "Community",
+        "desc": "Join our Discord and Telegram to stay up to date.",
+        "discord_title": "Discord",
+        "discord_desc": "Chat with the team and get support.",
+        "discord_cta": "Join Discord",
+        "telegram_title": "Telegram",
+        "telegram_desc": "News, announcements, and quick updates.",
+        "telegram_cta": "Join Telegram"
+    },
+    "features": {
+        "title": "Exclusive features",
+        "desc": "Everything you need to manage and launch clients.",
+        "cloud": {
+            "title": "Cloud profiles",
+            "desc": "Sync settings across devices and keep everything in one place.",
+            "badges": [
+                "Sync",
+                "Backups",
+                "Profiles"
+            ]
+        },
+        "custom": {
+            "title": "Customization",
+            "desc": "Theme the launcher, tweak behavior, and make it yours.",
+            "badges": [
+                "Themes",
+                "Mods",
+                "Shortcuts"
+            ]
+        },
+        "cord": {
+            "title": "Coordinates & maps",
+            "desc": "Quick access to location tools for your worlds.",
+            "badges": [
+                "Waypoints",
+                "Overlay",
+                "Share"
+            ]
+        },
+        "irc": {
+            "title": "Built-in chat",
+            "desc": "Stay connected without leaving the launcher.",
+            "badges": [
+                "Channels",
+                "Notifications",
+                "Presence"
+            ]
+        }
+    },
+    "analytics": {
+        "title": "Live stats",
+        "desc": "Real usage numbers from the CollapseLoader ecosystem.",
+        "loader_launches": "Loader launches",
+        "loader_launches_desc": "How many times the loader has been started.",
+        "client_downloads": "Client downloads",
+        "client_downloads_desc": "Total downloads across all clients.",
+        "client_launches": "Client launches",
+        "client_launches_desc": "Successful starts of clients."
+    },
+    "download": {
+        "title": "Download CollapseLoader",
+        "desc": "Choose the latest stable build or try the nightly.",
+        "aur_note": "On Arch Linux, install {pkg1} or {pkg2} from the AUR.",
+        "latest": "Latest release",
+        "latest_desc": "Stable build recommended for most users.",
+        "get_latest": "Get latest",
+        "nightly_desc": "Preview build with the newest features.",
+        "get_nightly": "Get nightly",
+        "source_code": "Source code",
+        "source_code_desc": "Browse the repository on GitHub.",
+        "view_source": "View source"
+    },
+    "footer": {
+        "desc": "Open-source launcher for Minecraft clients.",
+        "copyright": "© 2026 CollapseLoader. All rights reserved.",
+        "issues": "Report an issue",
+        "discord": "Discord",
+        "telegram": "Telegram",
+        "not_affiliated": "Not affiliated with Mojang or Microsoft."
+    },
+    "clients": {
+        "seo_title": "Client catalog — CollapseLoader",
+        "seo_desc": "Pick the best client for Minecraft and launch it in one click through our loader.",
+        "title": "Discovery Hub",
+        "back_to_library": "Back to library",
+        "loading": "Loading...",
+        "detail": {
+            "description_title": "Description",
+            "launch": "Launch",
+            "launch_now": "Launch now",
+            "loader_status": "Loader status",
+            "ready": "Ready",
+            "safety": "Safety",
+            "safety_desc": "Client has been sandbox-tested. CollapseLoader ensures no malicious code in client files.",
+            "stats": {
+                "downloads": "Downloads",
+                "version": "Version",
+                "type": "Type",
+                "status": "Status"
+            },
+            "seo_title_suffix": "download for Minecraft",
+            "og_title_suffix": "launch via CollapseLoader",
+            "description_template": "Download {name} version {version}. Verified client, type: {type}.",
+            "description_paragraph": "Verified client for version {version}. Build type: {type}. Fully compatible with CollapseLoader and ready to run.",
+            "status_ok": "ok",
+            "status_error": "error"
+        }
+    }
+}

@@ -32,6 +32,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+@reference "../assets/style.css";
 .scroll-progress-bar {
     box-shadow: 0 0 10px hsl(var(--p) / 0.5);
 }

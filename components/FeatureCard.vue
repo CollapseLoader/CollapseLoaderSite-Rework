@@ -82,9 +82,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-@reference "tailwindcss";
-@plugin "daisyui";
-
+@reference "../assets/style.css";
 .card-feature {
     @apply card bg-base-200/80 backdrop-blur-sm shadow-lg border border-transparent transition-all duration-500 relative overflow-hidden;
     @apply hover:shadow-2xl hover:border-primary/30 hover:bg-base-300/90;

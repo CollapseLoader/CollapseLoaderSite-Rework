@@ -4,30 +4,26 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "vite",
-        "build": "run-p type-check \"build-only {@}\" --",
-        "preview": "vite preview",
-        "build-only": "vite build",
-        "type-check": "vue-tsc --build"
+        "dev": "nuxt dev",
+        "build": "nuxt build",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare"
     },
     "dependencies": {
+        "@nuxtjs/i18n": "^10.2.1",
         "@tailwindcss/vite": "^4.1.13",
         "daisyui": "^5.1.13",
         "lucide-vue-next": "^0.544.0",
+        "nuxt": "^4.2.2",
         "tailwindcss": "^4.1.13",
         "vanilla-tilt": "^1.8.1",
         "vue": "^3.5.21",
-        "vue-i18n": "^11.1.12",
-        "vue-router": "^4.5.1"
+        "vue-i18n": "^11.1.12"
     },
     "devDependencies": {
-        "@tsconfig/node22": "^22.0.2",
         "@types/node": "^24.5.2",
-        "@vitejs/plugin-vue": "^6.0.1",
-        "@vue/tsconfig": "^0.8.1",
-        "npm-run-all2": "^8.0.4",
         "typescript": "~5.9.2",
-        "vite": "^7.1.6",
-        "vue-tsc": "^3.0.7"
+        "vite": "^7.1.6"
     }
 }

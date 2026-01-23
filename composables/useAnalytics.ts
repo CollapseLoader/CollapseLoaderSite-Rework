@@ -6,11 +6,10 @@ interface Analytics {
     total_client_downloads: number;
 }
 
-const totalLoaderLaunches = ref<number>(0);
-const totalClientLaunches = ref<number>(0);
-const totalClientDownloads = ref<number>(0);
-
 export function useAnalytics() {
+    const totalLoaderLaunches = ref<number>(0);
+    const totalClientLaunches = ref<number>(0);
+    const totalClientDownloads = ref<number>(0);
     async function fetchJSON(url: string): Promise<any> {
         try {
             const response = await fetch(url);
@@ -28,7 +27,7 @@ export function useAnalytics() {
 
     async function refetch() {
         try {
-            const data: Analytics = await fetchJSON('https://auth.collapseloader.org/api/statistics');
+            const data: Analytics = await fetchJSON('https://api.collapseloader.org/api/statistics');
             if (data) {
                 totalLoaderLaunches.value = data.total_loader_launches;
                 totalClientLaunches.value = data.total_client_launches;
