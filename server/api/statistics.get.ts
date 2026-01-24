@@ -8,8 +8,7 @@ export default defineEventHandler(async (event) => {
     })
     return res
   } catch (err) {
-    // Return a safe fallback and status 502 to indicate upstream error
-    event.res.statusCode = 502
+    event.node.res.statusCode = 502
     return { total_loader_launches: 0, total_client_launches: 0, total_client_downloads: 0 }
   }
 })

@@ -145,7 +145,6 @@ onMounted(async () => {
     try {
         await ensureOdometer();
     } catch (e) {
-        // script failed to load; odometer features will be skipped
         console.warn('Odometer script failed to load', e);
     }
 

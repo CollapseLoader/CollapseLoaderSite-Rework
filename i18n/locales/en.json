@@ -120,31 +120,31 @@
         "not_affiliated": "Not affiliated with Mojang or Microsoft."
     },
     "clients": {
-        "seo_title": "Client catalog — CollapseLoader",
+        "seo_title": "Client Catalog — CollapseLoader",
         "seo_desc": "Pick the best client for Minecraft and launch it in one click through our loader.",
         "title": "Discovery Hub",
         "back_to_library": "Back to library",
         "loading": "Loading...",
         "detail": {
-            "description_title": "Description",
+            "description_title": "Overview",
             "launch": "Launch",
-            "launch_now": "Launch now",
-            "loader_status": "Loader status",
-            "ready": "Ready",
-            "safety": "Safety",
-            "safety_desc": "Client has been sandbox-tested. CollapseLoader ensures no malicious code in client files.",
+            "launch_now": "Launch Now",
+            "loader_status": "Loader Status",
+            "ready": "Ready to launch",
+            "safety": "Verified Safe",
+            "safety_desc": "This client has been sandbox-tested. CollapseLoader ensures no malicious code and stable performance.",
             "stats": {
                 "downloads": "Downloads",
                 "version": "Version",
-                "type": "Type",
+                "type": "Build Type",
                 "status": "Status"
             },
-            "seo_title_suffix": "download for Minecraft",
-            "og_title_suffix": "launch via CollapseLoader",
+            "seo_title_suffix": "Download for Minecraft",
+            "og_title_suffix": "Launch via CollapseLoader",
             "description_template": "Download {name} version {version}. Verified client, type: {type}.",
             "description_paragraph": "Verified client for version {version}. Build type: {type}. Fully compatible with CollapseLoader and ready to run.",
-            "status_ok": "ok",
-            "status_error": "error"
+            "status_ok": "Working",
+            "status_error": "Issues Reported"
         }
     }
 }

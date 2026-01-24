@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { BarChart, Download, Rocket, Search, ArrowLeft } from 'lucide-vue-next'
+import { Search, ArrowLeft } from 'lucide-vue-next'
 
 const { t } = useI18n()
+const localePath = useLocalePath();
 
 const { data: vanillaClients } = await useFetch<any[]>('https://api.collapseloader.org/clients/')
 const { data: fabricClients } = await useFetch<any[]>('https://api.collapseloader.org/fabric-clients/')
@@ -37,58 +38,63 @@ useSeoMeta({
         </div>
 
         <div class="max-w-7xl mx-auto relative z-10">
-            <header class="text-center mb-16">
-                <NuxtLink to="/"
-                    class="inline-flex items-center gap-2 text-white/60 hover:text-primary transition-colors mb-8 group">
-                    <ArrowLeft class="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+            <header class="text-center mb-20 relative">
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/20 blur-[120px] rounded-full -z-10 opacity-50">
+                </div>
+
+                <NuxtLink :to="localePath('/')"
+                    class="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors mb-10 group bg-white/5 hover:bg-white/10 px-4 py-2 rounded-full backdrop-blur-md">
+                    <ArrowLeft class="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                     <span class="text-sm font-medium">{{ t('back') }}</span>
                 </NuxtLink>
 
-                <h1 class="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight">
+                <h1 class="text-5xl md:text-8xl font-black text-white mb-8 tracking-tighter drop-shadow-2xl">
                     {{ t('clients.title') }}
                 </h1>
 
-                <div class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto mt-10">
-                    <div class="relative flex-grow group">
+                <div class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto mt-12">
+                    <div class="relative flex-grow group z-20">
                         <input v-model="searchQuery" type="text" :placeholder="t('search_clients')"
-                            class="input w-full pl-12 h-14 bg-transparent border border-white/5 focus:border-primary/50 outline-none transition-all" />
+                            class="input w-full pl-14 h-16 bg-white/5 border border-white/10 hover:border-white/20 focus:border-primary/50 focus:bg-white/10 outline-none transition-all rounded-2xl text-lg backdrop-blur-xl shadow-2xl" />
                         <Search
-                            class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-base-content/60 group-focus-within:text-primary transition-colors pointer-events-none" />
+                            class="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-white/40 group-focus-within:text-primary transition-colors pointer-events-none" />
                     </div>
                 </div>
             </header>
 
-            <div v-if="filteredClients.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <NuxtLink v-for="(client, idx) in filteredClients" :key="client.id" :to="`/clients/${client.id}`"
-                    class="group relative" :style="{
-                        animation: `fadeIn 0.5s ease-out forwards ${idx * 0.05}s`,
+            <div v-if="filteredClients.length" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                <NuxtLink v-for="(client, idx) in filteredClients" :key="client.id"
+                    :to="localePath(`/clients/${client.id}`)" class="group relative block" :style="{
+                        animation: `fadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards ${idx * 0.05}s`,
                         textDecoration: 'none'
                     }">
                     <div
-                        class="glass-card rounded-[2.5rem] p-3 relative overflow-hidden transition-all duration-500 group-hover:scale-[1.02] group-hover:-translate-y-2">
+                        class="glass-card rounded-[2rem] p-2 relative overflow-hidden transition-all duration-500 group-hover:scale-[1.02] group-hover:-translate-y-1 border border-white/5 group-hover:border-primary/30 group-hover:shadow-[0_0_30px_-5px_hsl(var(--p)/0.3)]">
                         <div
-                            class="absolute inset-0 rounded-[2.5rem] pointer-events-none bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-60 transition-opacity">
+                            class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                         </div>
+
                         <div
-                            class="bg-gradient-to-br from-base-300/20 to-base-200/10 rounded-[2rem] p-8 backdrop-contrast-125">
-                            <div class="flex justify-between items-start mb-10">
+                            class="bg-base-300/40 rounded-[1.75rem] p-8 h-full flex flex-col backdrop-blur-md relative z-10 transition-colors group-hover:bg-base-300/60">
+
+                            <div class="flex justify-between items-start mb-8">
                                 <div
-                                    class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
-                                    <Rocket class="w-8 h-8" />
-                                </div>
-                                <div class="badge glass-card border-white/10 py-3">{{ client.version }}</div>
+                                    class="badge badge-lg bg-white/5 border-white/10 text-white/70 backdrop-blur-md font-mono">
+                                    {{ client.version }}</div>
                             </div>
 
-                            <h2 class="text-3xl font-bold mb-3 group-hover:text-primary transition-colors">{{
-                                client.name }}</h2>
+                            <h2
+                                class="text-3xl font-bold mb-2 text-white group-hover:text-primary transition-colors tracking-tight">
+                                {{ client.name }}</h2>
 
-                            <div class="flex flex-wrap gap-2 mt-4">
+                            <div class="flex flex-wrap gap-2 mt-auto">
                                 <span
-                                    class="text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full bg-primary/20 text-primary">
+                                    class="text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20">
                                     {{ client.client_type }}
                                 </span>
                                 <span
-                                    class="text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full bg-white/5 text-white/40">
+                                    class="text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 rounded-full bg-white/5 text-white/40 border border-white/5">
                                     {{ client.launches }} {{ t('launches') }}
                                 </span>
                             </div>

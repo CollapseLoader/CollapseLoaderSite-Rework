@@ -120,31 +120,31 @@
         "not_affiliated": "Не связано с Mojang или Microsoft."
     },
     "clients": {
-        "seo_title": "каталог клиентов — CollapseLoader",
-        "seo_desc": "выбери лучший клиент для Minecraft и запусти его в один клик через наш лоадер",
+        "seo_title": "Каталог клиентов — CollapseLoader",
+        "seo_desc": "Выбери лучший клиент для Minecraft и запусти его в один клик через наш лоадер",
         "title": "Каталог клиентов",
-        "back_to_library": "назад в библиотеку",
+        "back_to_library": "Назад в библиотеку",
         "loading": "Загрузка...",
         "detail": {
-            "description_title": "описание",
-            "launch": "запуск",
-            "launch_now": "запустить сейчас",
-            "loader_status": "статус лоадера",
-            "ready": "готов",
-            "safety": "безопасность",
-            "safety_desc": "Клиент проверен в песочнице. CollapseLoader гарантирует отсутствие вредоносного кода в файлах клиента.",
+            "description_title": "Обзор",
+            "launch": "Запуск",
+            "launch_now": "Запустить",
+            "loader_status": "Статус лоадера",
+            "ready": "Готов к запуску",
+            "safety": "Безопасность",
+            "safety_desc": "Клиент проверен в безопасной среде. CollapseLoader гарантирует отсутствие вредоносного кода и стабильную работу.",
             "stats": {
-                "downloads": "загрузки",
-                "version": "версия",
-                "type": "тип",
-                "status": "статус"
+                "downloads": "Загрузок",
+                "version": "Версия",
+                "type": "Тип сборки",
+                "status": "Состояние"
             },
-            "seo_title_suffix": "скачать для Minecraft",
-            "og_title_suffix": "запуск через CollapseLoader",
+            "seo_title_suffix": "Скачать для Minecraft",
+            "og_title_suffix": "Запуск через CollapseLoader",
             "description_template": "Скачать {name} версии {version}. Проверенный клиент, тип: {type}.",
             "description_paragraph": "Проверенный клиент для версии {version}. Тип сборки: {type}. Полностью совместим с CollapseLoader и готов к работе.",
-            "status_ok": "ок",
-            "status_error": "ошибка"
+            "status_ok": "Работает",
+            "status_error": "Не работает"
         }
     }
 }
