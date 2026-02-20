@@ -4,7 +4,11 @@ import { defineNuxtConfig } from "nuxt/config";
 export default defineNuxtConfig({
     compatibilityDate: '2024-11-01',
     devtools: { enabled: true },
-    modules: ['@nuxtjs/i18n', '@nuxtjs/seo'],
+    modules: [
+        '@nuxtjs/i18n',
+        '@nuxtjs/seo',
+        ['nuxt-gtag', { id: 'G-EDZVJ6HR2K' }]
+    ],
     sitemap: {
         sources: ['/api/__sitemap__/urls'],
     },
