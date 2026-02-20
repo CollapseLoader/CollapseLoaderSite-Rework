@@ -123,6 +123,15 @@
         "seo_title": "Client Catalog — CollapseLoader",
         "seo_desc": "Pick the best client for Minecraft and launch it in one click through our loader.",
         "title": "Discovery Hub",
+        "subtitle": "Explore our curated collection of high-performance Minecraft clients.",
+        "tabs": {
+            "all": "All",
+            "vanilla": "Vanilla",
+            "fabric": "Fabric",
+            "forge": "Forge"
+        },
+        "clear_filters": "Clear all filters",
+        "try_adjusting": "Try adjusting your search or filters.",
         "back_to_library": "Back to library",
         "loading": "Loading...",
         "detail": {

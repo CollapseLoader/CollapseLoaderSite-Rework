@@ -302,6 +302,7 @@ watch(totalClientLaunches, (val) => {
                     <div ref="tiltElement" class="showcase-wrapper relative" style="--stagger: 1">
                         <div class="showcase shadow-2xl hover:shadow-primary/20 group">
                             <div class="showcase-front"></div>
+                            <div class="showcase-front-2"></div>
                         </div>
                     </div>
                 </div>
@@ -373,7 +374,6 @@ watch(totalClientLaunches, (val) => {
                             <div class="card-body items-center text-center">
                                 <div class="rounded-2xl p-4 bg-primary/10 text-primary">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240.1 240.1" class="h-7 w-7">
-                                        <circle fill="currentColor" opacity="0.15" cx="120.1" cy="120.1" r="120.1" />
                                         <path fill="currentColor"
                                             d="M54.3,118.8c35-15.2,58.3-25.3,70-30.2 c33.3-13.9,40.3-16.3,44.8-16.4c1,0,3.2,0.2,4.7,1.4c1.2,1,1.5,2.3,1.7,3.3s0.4,3.1,0.2,4.7c-1.8,19-9.6,65.1-13.6,86.3 c-1.7,9-5,12-8.2,12.3c-7,0.6-12.3-4.6-19-9c-10.6-6.9-16.5-11.2-26.8-18c-11.9-7.8-4.2-12.1,2.6-19.1c1.8-1.8,32.5-29.8,33.1-32.3 c0.1-0.3,0.1-1.5-0.6-2.1c-0.7-0.6-1.7-0.4-2.5-0.2c-1.1,0.2-17.9,11.4-50.6,33.5c-4.8,3.3-9.1,4.9-13,4.8 c-4.3-0.1-12.5-2.4-18.7-4.4c-7.5-2.4-13.5-3.7-13-7.9C45.7,123.3,48.7,121.1,54.3,118.8z" />
                                     </svg>
@@ -625,7 +625,7 @@ html {
 }
 
 .showcase {
-    aspect-ratio: 897 / 550;
+    aspect-ratio: 16 / 9;
     background-image: url('~/assets/img/loader-back.png');
     background-size: cover;
     transform-style: preserve-3d;
@@ -634,7 +634,17 @@ html {
 }
 
 .showcase-front {
+    position: absolute;
     background-image: url('~/assets/img/loader-front.png');
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.showcase-front-2 {
+    position: absolute;
+    background-image: url('~/assets/img/loader-front-2.png');
     width: 100%;
     height: 100%;
     background-size: cover;
@@ -643,6 +653,10 @@ html {
 
 .showcase:hover .showcase-front {
     transform: translateZ(40px) scale(1.03);
+}
+
+.showcase:hover .showcase-front-2 {
+    transform: translateZ(60px) scale(1.05);
 }
 
 @keyframes icon-bounce {
@@ -667,11 +681,6 @@ html {
     90% {
         transform: translateY(-4px) rotate(1deg) scale(1.01);
     }
-}
-
-.group-hover\:animate-icon-bounce:hover,
-.group:hover .group-hover\:animate-icon-bounce {
-    animation: icon-bounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes icon-pulse-green {

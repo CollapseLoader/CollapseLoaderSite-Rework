@@ -4,7 +4,10 @@ import { defineNuxtConfig } from "nuxt/config";
 export default defineNuxtConfig({
     compatibilityDate: '2024-11-01',
     devtools: { enabled: true },
-    modules: ['@nuxtjs/i18n'],
+    modules: ['@nuxtjs/i18n', '@nuxtjs/seo'],
+    sitemap: {
+        sources: ['/api/__sitemap__/urls'],
+    },
     css: ['~/assets/style.css'],
     app: {
         head: {
@@ -17,7 +20,6 @@ export default defineNuxtConfig({
             link: [
                 { rel: 'icon', href: '/favicon.ico' },
                 { rel: 'icon', href: '/favicon.png', type: 'image/png', sizes: '512x512' },
-                { rel: 'canonical', href: 'https://collapseloader.org/' },
                 { rel: 'preconnect', href: 'https://api.github.com' },
                 { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
                 { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
