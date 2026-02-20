@@ -7,7 +7,7 @@ export default defineNuxtConfig({
     modules: [
         '@nuxtjs/i18n',
         '@nuxtjs/seo',
-        ['nuxt-gtag', { id: 'G-EDZVJ6HR2K' }]
+        ['nuxt-gtag', { id: 'GTM-5BKLGW9D' }]
     ],
     sitemap: {
         sources: ['/api/__sitemap__/urls'],
