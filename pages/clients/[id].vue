@@ -7,7 +7,11 @@ const clientId = route.params.id as string
 const requestUrl = useRequestURL()
 const canonicalUrl = computed(() => `${requestUrl.origin}${route.path}`)
 
-const { all } = useClients()
+const { all, fetchClients } = useClients()
+
+if (!all.value || all.value.length === 0) {
+    await fetchClients()
+}
 
 const { data: clientRawDetailed, error } = await useFetch<{ success: boolean, data: any }>(`https://atlas.collapseloader.org/api/v1/clients/${clientId}/detailed`)
 

@@ -15,7 +15,7 @@ export default function useClients() {
     const all = useState<Client[]>('clients_all', () => [])
 
     const fetchClients = async () => {
-        if ((vanilla.value && vanilla.value.length) || (fabric.value && fabric.value.length) || (forge.value && forge.value.length)) {
+        if ((all.value && all.value.length) || (vanilla.value && vanilla.value.length) || (fabric.value && fabric.value.length) || (forge.value && forge.value.length)) {
             return
         }
 

@@ -98,7 +98,8 @@ useSeoMeta({
             </header>
 
             <div v-if="filteredClients.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div v-for="(client, idx) in filteredClients" :key="client.id"
+                <NuxtLink v-for="(client, idx) in filteredClients" :key="client.id"
+                    :to="localePath(`/clients/${client.id}`)"
                     class="group block bg-white/5 border border-white/10 rounded-[2rem] p-8 transition-all hover:bg-white/10 hover:border-primary/20">
                     <div class="flex flex-col h-full relative">
                         <div class="flex justify-between items-start mb-8">
@@ -106,10 +107,10 @@ useSeoMeta({
                                 class="px-4 py-1.5 rounded-xl bg-white/5 border border-white/5 text-white/50 text-xs font-bold tracking-widest font-mono group-hover:text-primary transition-colors">
                                 {{ client.version }}
                             </div>
-                            <NuxtLink :to="localePath(`/clients/${client.id}`)">
+                            <span>
                                 <ArrowLeft
                                     class="w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0 rotate-180" />
-                            </NuxtLink>
+                            </span>
                         </div>
 
                         <h2 class="text-3xl font-bold mb-4 text-white tracking-tight">
@@ -125,13 +126,13 @@ useSeoMeta({
                                 class="bg-white/5 text-white/30 text-[10px] font-black uppercase tracking-widest px-3.5 py-2 rounded-xl border border-white/5">
                                 {{ client.launches }} {{ t('launches') }}
                             </span>
-                            <button @click="launchClient(client)" :title="t('clients.detail.launch_now')"
+                            <button @click.stop.prevent="launchClient(client)" :title="t('clients.detail.launch_now')"
                                 class="ml-auto btn btn-primary btn-sm rounded-xl flex items-center gap-1 px-3 py-1.5 text-xs font-bold shadow hover:shadow-primary/30 transition-all">
                                 <Play class="w-4 h-4" />
                             </button>
                         </div>
                     </div>
-                </div>
+                </NuxtLink>
             </div>
 
             <div v-else class="text-center py-40 bg-white/5 rounded-[3rem] border border-dashed border-white/10">
