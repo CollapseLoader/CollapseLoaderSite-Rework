@@ -7,14 +7,11 @@ const clientId = route.params.id as string
 const requestUrl = useRequestURL()
 const canonicalUrl = computed(() => `${requestUrl.origin}${route.path}`)
 
+const { t } = useI18n();
+const localePath = useLocalePath();
 const { all, fetchClients } = useClients()
 
-if (!all.value || all.value.length === 0) {
-    await fetchClients()
-}
-
-const { data: clientRawDetailed, error } = await useFetch<{ success: boolean, data: any }>(`https://atlas.collapseloader.org/api/v1/clients/${clientId}/detailed`)
-
+const clientRawDetailed = ref<{ success: boolean, data: any } | null>(null)
 const clientDetailed = computed(() => clientRawDetailed.value?.data ?? null)
 
 const clientInfo = computed(() => {
@@ -23,13 +20,6 @@ const clientInfo = computed(() => {
 })
 
 const client = computed(() => clientDetailed.value ?? clientInfo.value ?? null)
-
-const { t } = useI18n();
-const localePath = useLocalePath();
-
-if (!clientDetailed.value && !clientInfo.value && !error.value) {
-    throw createError({ statusCode: 404, statusMessage: 'client not found' })
-}
 
 const description = computed(() => t('clients.detail.description_template', {
     name: client.value?.name,
@@ -80,6 +70,17 @@ useHead({
         }
     ]
 })
+
+if (!all.value || all.value.length === 0) {
+    await fetchClients()
+}
+
+const { data: fetchedDetailed, error } = await useFetch<{ success: boolean, data: any }>(`https://atlas.collapseloader.org/api/v1/clients/${clientId}/detailed`)
+clientRawDetailed.value = fetchedDetailed.value ?? null
+
+if (!clientDetailed.value && !clientInfo.value && !error.value) {
+    throw createError({ statusCode: 404, statusMessage: 'client not found' })
+}
 
 const launchClient = () => {
     if (clientDetailed.value) {

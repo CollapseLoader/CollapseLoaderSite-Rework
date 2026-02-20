@@ -5,7 +5,9 @@ import useClients from '~/composables/useClients'
 const { t } = useI18n()
 const localePath = useLocalePath();
 
-const { all, vanilla, fabric, forge } = useClients()
+const { all, vanilla, fabric, forge, fetchClients } = useClients()
+
+await fetchClients()
 
 const activeTab = ref('all')
 const searchQuery = ref('')
