@@ -42,7 +42,7 @@ onMounted(() => {
                             }}</a>
                     </li>
                     <li>
-                        <a href="#download" class="hover:text-primary transition-colors">{{ $t('nav.download') }}</a>
+                        <a href="#downloads" class="hover:text-primary transition-colors">{{ $t('nav.download') }}</a>
                     </li>
                     <li>
                         <NuxtLink to="/clients" class="font-medium nav-link">
@@ -88,7 +88,7 @@ onMounted(() => {
                     </li>
 
                     <li>
-                        <a href="#download" class="btn btn-primary btn-sm w-full mt-4">
+                        <a href="#downloads" class="btn btn-primary btn-sm w-full mt-4">
                             {{ $t('nav.download') }}
                         </a>
                     </li>
@@ -112,7 +112,7 @@ onMounted(() => {
                     <a href="#exclusive-features" class="font-medium nav-link">{{ $t('nav.features') }}</a>
                 </li>
                 <li>
-                    <a href="#download" class="font-medium nav-link">{{
+                    <a href="#downloads" class="font-medium nav-link">{{
                         $t('nav.download')
                         }}</a>
                 </li>
@@ -174,7 +174,7 @@ onMounted(() => {
                 <Github class="h-6 w-6" />
             </a>
 
-            <a href="#download"
+            <a href="#downloads"
                 class="btn btn-primary ml-2 animate-cta-pulse hidden md:flex hover:scale-105 transition-transform">
                 <Download class="inline-block mr-1 h-5 w-5" />
                 {{ $t('nav.download') }}

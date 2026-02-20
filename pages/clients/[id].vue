@@ -20,9 +20,6 @@ const clientInfo = computed(() => {
 
 const client = computed(() => clientDetailed.value ?? clientInfo.value ?? null)
 
-console.log('Client detailed:', clientDetailed.value)
-console.log('Client info:', clientInfo.value)
-
 const { t } = useI18n();
 const localePath = useLocalePath();
 
@@ -30,28 +27,23 @@ if (!clientDetailed.value && !clientInfo.value && !error.value) {
     throw createError({ statusCode: 404, statusMessage: 'client not found' })
 }
 
+const description = computed(() => t('clients.detail.description_template', {
+    name: client.value?.name,
+    version: client.value?.version,
+    type: client.value?.client_type,
+}))
+
 useSeoMeta({
-    title: () => `${clientDetailed.value?.name || t('clients.loading')} — ${t('clients.detail.seo_title_suffix')}`,
-    ogTitle: () => `${clientDetailed.value?.name} — ${t('clients.detail.og_title_suffix')}`,
-    description: () => t('clients.detail.description_template', {
-        name: clientDetailed.value?.name,
-        version: clientDetailed.value?.version,
-        type: clientDetailed.value?.client_type,
-    }),
-    ogDescription: () => t('clients.detail.description_template', {
-        name: clientDetailed.value?.name,
-        version: clientDetailed.value?.version,
-        type: clientDetailed.value?.client_type,
-    }),
+    title: () => `${client.value?.name || t('clients.loading')} — ${t('clients.detail.seo_title_suffix')}`,
+    ogTitle: () => `${client.value?.name} — ${t('clients.detail.og_title_suffix')}`,
+    description: () => description.value,
+    ogDescription: () => description.value,
+    keywords: () => `${client.value?.name}, minecraft ${client.value?.name}, ${client.value?.name} download, ${client.value?.name} minecraft client, collapse loader, minecraft hacks`,
     ogType: 'website',
     ogUrl: () => canonicalUrl.value,
     twitterCard: 'summary_large_image',
-    twitterTitle: () => `${clientDetailed.value?.name} — ${t('clients.detail.og_title_suffix')}`,
-    twitterDescription: () => t('clients.detail.description_template', {
-        name: clientDetailed.value?.name,
-        version: clientDetailed.value?.version,
-        type: clientDetailed.value?.client_type,
-    }),
+    twitterTitle: () => `${client.value?.name} — ${t('clients.detail.og_title_suffix')}`,
+    twitterDescription: () => description.value,
     robots: 'index, follow',
 })
 
@@ -62,6 +54,27 @@ useHead({
             href: canonicalUrl.value,
         },
     ],
+    script: [
+        {
+            type: 'application/ld+json',
+            innerHTML: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": client.value?.name,
+                "description": description.value,
+                "applicationCategory": "GameApplication",
+                "operatingSystem": "Windows, Linux",
+                "softwareVersion": client.value?.version,
+                "datePublished": "2026-02-20",
+                "dateModified": "2026-02-20",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                }
+            })
+        }
+    ]
 })
 
 const launchClient = () => {
@@ -173,6 +186,17 @@ const launchClient = () => {
                                     <span>{{ t('clients.detail.launch_now') }}</span>
                                 </div>
                             </button>
+
+                            <p class="text-xs text-center text-white/30 px-4">
+                                <i18n-t keypath="clients.detail.download_loader_hint">
+                                    <template #link>
+                                        <NuxtLink :to="localePath('/') + '#downloads'"
+                                            class="text-primary hover:underline underline-offset-4 decoration-primary/30">
+                                            {{ t('clients.detail.main_page') }}
+                                        </NuxtLink>
+                                    </template>
+                                </i18n-t>
+                            </p>
 
                             <div class="pt-6 border-t border-white/5 flex flex-col gap-4">
                                 <div class="flex items-center justify-between text-sm">

@@ -150,8 +150,10 @@
             },
             "seo_title_suffix": "Скачать для Minecraft",
             "og_title_suffix": "Запуск через CollapseLoader",
-            "description_template": "Скачать {name} версии {version}. Проверенный клиент, тип: {type}.",
-            "description_paragraph": "Проверенный клиент для версии {version}. Тип сборки: {type}. Полностью совместим с CollapseLoader и готов к работе.",
+            "description_template": "Ищете {name} для Minecraft? Скачайте {name} версии {version} ({type}) бесплатно. Проверенный и безопасный клиент для CollapseLoader.",
+            "description_paragraph": "Проверенный клиент для версии {version}. Тип сборки: {type}. Полностью совместим с CollapseLoader и готов к работе. Если у вас не установлен лоадер, вы можете скачать его на главной странице.",
+            "download_loader_hint": "Нет лоадера? Скачайте его на {link}.",
+            "main_page": "главной странице",
             "status_ok": "Работает",
             "status_error": "Не работает"
         }

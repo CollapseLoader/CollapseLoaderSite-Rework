@@ -150,8 +150,10 @@
             },
             "seo_title_suffix": "Download for Minecraft",
             "og_title_suffix": "Launch via CollapseLoader",
-            "description_template": "Download {name} version {version}. Verified client, type: {type}.",
-            "description_paragraph": "Verified client for version {version}. Build type: {type}. Fully compatible with CollapseLoader and ready to run.",
+            "description_template": "Looking for {name} for Minecraft? Download {name} version {version} ({type}) for free. Verified and secure client for CollapseLoader.",
+            "description_paragraph": "Verified client for version {version}. Build type: {type}. Fully compatible with CollapseLoader and ready to run. If you don't have the loader installed, you can download it on the main page.",
+            "download_loader_hint": "Don't have the loader? Download it on the {link}.",
+            "main_page": "main page",
             "status_ok": "Working",
             "status_error": "Issues Reported"
         }

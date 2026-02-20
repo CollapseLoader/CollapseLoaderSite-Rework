@@ -269,7 +269,7 @@ watch(totalClientLaunches, (val) => {
 
                         <div class="flex flex-col gap-6 animate-slide-in-up w-fit" style="--stagger: 3">
                             <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                                <a href="#download"
+                                <a href="#downloads"
                                     class="btn btn-primary btn-lg shadow-xl hover:scale-105 transition-all duration-300 animate-cta-pulse group relative overflow-hidden">
                                     <span class="relative z-10 flex items-center gap-2">
                                         {{ t('hero.download') }}
@@ -463,7 +463,7 @@ watch(totalClientLaunches, (val) => {
                 </div>
             </section>
 
-            <section id="download" class="py-32 bg-base-200/95 backdrop-blur-sm relative">
+            <section id="downloads" class="py-32 bg-base-200/95 backdrop-blur-sm relative">
                 <div class="absolute inset-0 pointer-events-none z-0">
                     <div
                         class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-screen-xl h-1/2 download-gradient-bg">
